@@ -1,0 +1,6 @@
+rootProject.name='Edik'
+include ':app'
+include ':direction'
+include ':professeur'
+include ':eleve'
+include ':parent'
