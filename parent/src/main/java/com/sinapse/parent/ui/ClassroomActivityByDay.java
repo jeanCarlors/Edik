@@ -1,16 +1,16 @@
-package com.sinapse.direction.ui;
+package com.sinapse.parent.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.sinapse.direction.R;
+import com.sinapse.parent.R;
 
-public class Content extends AppCompatActivity {
+public class ClassroomActivityByDay extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_content);
+        setContentView(R.layout.activity_classroom_by_day);
     }
 }

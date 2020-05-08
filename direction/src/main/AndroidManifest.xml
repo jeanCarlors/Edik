@@ -9,11 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.Content"></activity>
+        <activity android:name=".ui.TeacherContent"></activity>
+        <activity android:name=".ui.ContentDetails" />
         <activity android:name=".ui.ClassroomCreationForm" />
         <activity android:name=".ui.Messages" />
         <activity android:name=".ui.SchoolActivityByDay" />
-        <activity android:name=".ui.ActivityDescription" />
+        <activity android:name=".ui.ActivityDetails" />
         <activity android:name=".ui.TeacherActivityByDay" />
         <activity android:name=".ui.TeacherProfile" />
         <activity android:name=".ui.TeachersBySchool" />

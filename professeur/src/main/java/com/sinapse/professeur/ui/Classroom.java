@@ -1,14 +1,16 @@
-package com.sinapse.edik;
+package com.sinapse.professeur.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class OfflineHome extends AppCompatActivity {
+import com.sinapse.professeur.R;
+
+public class Classroom extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_offline_home);
+        setContentView(R.layout.activity_classroom);
     }
 }

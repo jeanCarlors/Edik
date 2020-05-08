@@ -9,6 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.ActivityDetails"></activity>
+        <activity android:name=".ui.ClassroomActivityByDay" />
+        <activity android:name=".ui.Messages" />
+        <activity android:name=".ui.ContentDetails" />
+        <activity android:name=".ui.EdikContent" />
+        <activity android:name=".ui.Home" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

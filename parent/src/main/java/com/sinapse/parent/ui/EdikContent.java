@@ -1,14 +1,16 @@
-package com.sinapse.edik;
+package com.sinapse.parent.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class Connection extends AppCompatActivity {
+import com.sinapse.parent.R;
+
+public class EdikContent extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_connection);
+        setContentView(R.layout.activity_edik_content);
     }
 }

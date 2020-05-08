@@ -1,16 +1,16 @@
-package com.sinapse.direction.ui;
+package com.sinapse.eleve.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.sinapse.direction.R;
+import com.sinapse.eleve.R;
 
-public class ActivityDescription extends AppCompatActivity {
+public class ActivityDetails extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_description);
+        setContentView(R.layout.activity_details);
     }
 }

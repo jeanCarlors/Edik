@@ -1,16 +1,16 @@
-package com.sinapse.eleve.ui;
+package com.sinapse.edik.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.sinapse.eleve.R;
+import com.sinapse.edik.R;
 
-public class Content extends AppCompatActivity {
+public class OfflineHome extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_content);
+        setContentView(R.layout.activity_offline_home);
     }
 }
