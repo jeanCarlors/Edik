@@ -9,6 +9,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.Content"></activity>
+        <activity android:name=".ui.ClassroomCreationForm" />
+        <activity android:name=".ui.Messages" />
+        <activity android:name=".ui.SchoolActivityByDay" />
+        <activity android:name=".ui.ActivityDescription" />
+        <activity android:name=".ui.TeacherActivityByDay" />
+        <activity android:name=".ui.TeacherProfile" />
+        <activity android:name=".ui.TeachersBySchool" />
+        <activity android:name=".ui.TeachersByClassroom" />
+        <activity android:name=".ui.ClassroomActivityByDay" />
+        <activity android:name=".ui.StudentProfile" />
+        <activity android:name=".ui.StudentsByClassroom" />
+        <activity android:name=".ui.Classroom" />
+        <activity android:name=".ui.Grade" />
+        <activity android:name=".ui.School" />
+        <activity android:name=".ui.EdikContentByGrade" />
+        <activity android:name=".ui.EdikContent" />
+        <activity android:name=".ui.Home" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
