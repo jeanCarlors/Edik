@@ -1,21 +1,24 @@
 package com.sinapse.libmodule;
 
-public class Parent {
-    private String Id;
+public class Student {
+    private String id;
     private String firstName;
     private String lastName;
+    private String address;
     private String phone;
+    private String classroom;
+    private String profile;
 
-    public Parent() {
+    public Student() {
 
     }
 
     public String getId() {
-        return Id;
+        return id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -34,11 +37,35 @@ public class Parent {
         this.lastName = lastName;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public String getPhone() {
         return phone;
     }
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getClassroom() {
+        return classroom;
+    }
+
+    public void setClassroom(String classroom) {
+        this.classroom = classroom;
+    }
+
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
     }
 }
