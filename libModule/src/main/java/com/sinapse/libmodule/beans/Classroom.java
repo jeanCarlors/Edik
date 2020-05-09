@@ -1,4 +1,4 @@
-package com.sinapse.libmodule;
+package com.sinapse.libmodule.beans;
 
 import java.util.List;
 
