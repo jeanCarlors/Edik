@@ -1,14 +1,16 @@
-package com.sinapse.professeur;
+package com.sinapse.professeur.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.sinapse.professeur.R;
+
+public class LoginRecovery extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login_recovery);
     }
 }

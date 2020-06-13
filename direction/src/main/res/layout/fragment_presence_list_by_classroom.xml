@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.StudentList">
+
+    <TableLayout
+        android:id="@+id/tablelayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:shrinkColumns="*"
+        android:stretchColumns="*">
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Eleves"
+                android:textSize="25dp"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Absences"
+                android:textSize="25dp"
+                android:gravity="center"/>
+        </TableRow>
+        <TableRow>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Ricardo Alexandre"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onStudentClicked"/>
+        <RadioButton android:layout_gravity="center"/>
+    </TableRow><TableRow>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Ricardo Alexandre"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onStudentClicked"/>
+        <RadioButton android:layout_gravity="center"/>
+    </TableRow><TableRow>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Ricardo Alexandre"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onStudentClicked"/>
+        <RadioButton android:layout_gravity="center"/>
+    </TableRow><TableRow>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Ricardo Alexandre"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onStudentClicked"/>
+        <RadioButton android:layout_gravity="center"/>
+    </TableRow><TableRow>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Ricardo Alexandre"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onStudentClicked"/>
+        <RadioButton android:layout_gravity="center"/>
+    </TableRow><TableRow>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Ricardo Alexandre"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onStudentClicked"/>
+        <RadioButton android:layout_gravity="center"/>
+    </TableRow><TableRow>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Ricardo Alexandre"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onStudentClicked"/>
+        <RadioButton android:layout_gravity="center"/>
+    </TableRow><TableRow>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Ricardo Alexandre"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onStudentClicked"/>
+        <RadioButton android:layout_gravity="center"/>
+    </TableRow><TableRow>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Ricardo Alexandre"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onStudentClicked"/>
+        <RadioButton android:layout_gravity="center"/>
+    </TableRow><TableRow>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Ricardo Alexandre"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onStudentClicked"/>
+        <RadioButton android:layout_gravity="center"/>
+    </TableRow><TableRow>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Ricardo Alexandre"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onStudentClicked"/>
+        <RadioButton android:layout_gravity="center"/>
+    </TableRow>
+    </TableLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Soumettre les absences"
+        android:padding="5dp"
+        android:textColor="#ffffff"
+        android:background="@color/colorPrimary"
+        android:layout_below="@id/tablelayout"
+        android:layout_marginLeft="50dp"/>
+</RelativeLayout>

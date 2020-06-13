@@ -1,3 +1,37 @@
 <resources>
     <string name="app_name">Direction</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tab_edik_content">Les contenus</string>
+    <string name="tab_school">Mon etablissement </string>
+    <string name="drawer_open">Drawer open</string>
+    <string name="drawer_close">Drawer close</string>
+
+    <string-array name="teacher_arrays">
+        <item>Pierre</item>
+        <item>Paul</item>
+        <item>Joe</item>
+        <item>Pa</item>
+        <item>Lo</item>
+        <item>Li</item>
+        <item>Neli</item>
+        <item>Indisla</item>
+    </string-array>
+    <string name="title_activity_login_recovery">Settings</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
 </resources>

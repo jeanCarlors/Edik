@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/drawer_Content"
+            android:icon="@drawable/icons8_content_100"
+            android:title="Contenus"
+            android:checked="true"/>
+        <item
+            android:id="@+id/drawer_admin"
+            android:icon="@drawable/icons8_school_64"
+            android:title="Administration" />
+        <item
+            android:id="@+id/drawer_classroom"
+            android:icon="@drawable/icons8_classroom_80"
+            android:title="Classes" />
+        <item
+            android:id="@+id/drawer_teacher"
+            android:icon="@drawable/icons8_teacher_80"
+            android:title="Professeurs" />
+        <item
+            android:id="@+id/drawer_schedule"
+            android:icon="@drawable/icons8_schedule_100"
+            android:title="Calendrier" />
+        <item
+            android:id="@+id/drawer_message"
+            android:icon="@drawable/icons8_new_message_50"
+            android:title="Messagerie" />
+    </group>
+
+</menu>

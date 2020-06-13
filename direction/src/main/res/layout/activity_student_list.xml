@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.StudentList">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/colorPrimary"
+        android:text="Les élèves"
+        android:textColor="#ffffff"
+        android:textSize="30dp"
+        android:gravity="center"/>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/textView"
+        android:shrinkColumns="*"
+        android:stretchColumns="*">
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Les eleves"
+                android:textSize="25dp"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Les activités"
+                android:textSize="25dp"
+                android:gravity="center"/>
+        </TableRow>
+        <TableRow>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Ricardo Alexandre"
+                android:gravity="center"
+                android:clickable="true"
+                android:onClick="onStudentClicked"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Activités"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="onActivityClicked"/>
+        </TableRow>
+        <TableRow>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Ricardo Alexandre"
+                android:gravity="center"
+                android:clickable="true"
+                android:onClick="onStudentClicked"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Activités"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="onActivityClicked"/>
+        </TableRow>
+        <TableRow>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Ricardo Alexandre"
+                android:gravity="center"
+                android:clickable="true"
+                android:onClick="onStudentClicked"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Activités"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="onActivityClicked"/>
+        </TableRow><TableRow>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Ricardo Alexandre"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onStudentClicked"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Activités"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="onActivityClicked"/>
+    </TableRow><TableRow>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Ricardo Alexandre"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onStudentClicked"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Activités"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="onActivityClicked"/>
+    </TableRow><TableRow>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Ricardo Alexandre"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onStudentClicked"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Activités"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="onActivityClicked"/>
+    </TableRow><TableRow>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Ricardo Alexandre"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onStudentClicked"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Activités"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="onActivityClicked"/>
+    </TableRow><TableRow>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Ricardo Alexandre"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onStudentClicked"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Activités"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="onActivityClicked"/>
+    </TableRow><TableRow>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Ricardo Alexandre"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onStudentClicked"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Activités"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="onActivityClicked"/>
+    </TableRow><TableRow>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Ricardo Alexandre"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onStudentClicked"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Activités"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="onActivityClicked"/>
+    </TableRow><TableRow>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Ricardo Alexandre"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onStudentClicked"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Activités"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="onActivityClicked"/>
+    </TableRow><TableRow>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Ricardo Alexandre"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onStudentClicked"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Activités"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="onActivityClicked"/>
+    </TableRow><TableRow>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Ricardo Alexandre"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onStudentClicked"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Activités"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="onActivityClicked"/>
+    </TableRow><TableRow>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Ricardo Alexandre"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onStudentClicked"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Activités"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="onActivityClicked"/>
+    </TableRow>
+
+    </TableLayout>
+</RelativeLayout>
