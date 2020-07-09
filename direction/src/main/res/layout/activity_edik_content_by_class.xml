@@ -41,7 +41,7 @@
                     android:src="@drawable/ns1"
                     android:scaleType="fitCenter"
                     android:background="#ffffff"
-                    android:onClick="onNSOneClicked"/>
+                    android:onClick="onNSIClicked"/>
 
                 <View
                     android:layout_width="1dp"
@@ -75,7 +75,8 @@
                     android:layout_height="match_parent"
                     android:src="@drawable/ns2"
                     android:scaleType="fitCenter"
-                    android:background="#ffffff"/>
+                    android:background="#ffffff"
+                    android:onClick="onNSIIClicked"/>
 
                 <View
                     android:layout_width="1dp"
@@ -109,7 +110,8 @@
                     android:layout_height="match_parent"
                     android:src="@drawable/ns3"
                     android:scaleType="fitCenter"
-                    android:background="#ffffff"/>
+                    android:background="#ffffff"
+                    android:onClick="onNSIIIClicked"/>
 
                 <View
                     android:layout_width="1dp"
@@ -143,7 +145,8 @@
                     android:layout_height="match_parent"
                     android:src="@drawable/ns4"
                     android:scaleType="fitCenter"
-                    android:background="#ffffff"/>
+                    android:background="#ffffff"
+                    android:onClick="onNSIVClicked"/>
 
                 <View
                     android:layout_width="1dp"

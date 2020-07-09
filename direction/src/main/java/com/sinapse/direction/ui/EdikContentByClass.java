@@ -16,8 +16,27 @@ public class EdikContentByClass extends AppCompatActivity {
         setContentView(R.layout.activity_edik_content_by_class);
     }
 
-    public void onNSOneClicked(View view) {
+    public void onNSIClicked(View view) {
         Intent intent = new Intent(this, ContentList.class);
+        intent.putExtra("grade", "/NS I");
+        startActivity(intent);
+    }
+
+    public void onNSIIClicked(View view) {
+        Intent intent = new Intent(this, ContentList.class);
+        intent.putExtra("grade", "/NS II");
+        startActivity(intent);
+    }
+
+    public void onNSIIIClicked(View view) {
+        Intent intent = new Intent(this, ContentList.class);
+        intent.putExtra("grade", "/NS III");
+        startActivity(intent);
+    }
+
+    public void onNSIVClicked(View view) {
+        Intent intent = new Intent(this, ContentList.class);
+        intent.putExtra("grade", "/NS IV");
         startActivity(intent);
     }
 }

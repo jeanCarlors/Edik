@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:layout_marginBottom="10dp">
+
+    <TextView
+        android:id="@+id/topic_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="SUbject 1"
+        android:gravity="left"
+        android:paddingLeft="10dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:layout_below="@id/topic_text">
+
+        <ImageButton
+            android:id="@+id/topic_img_item"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/edik_content"
+            android:scaleType="fitCenter"
+            android:background="#ffffff"/>
+
+        <TextView
+            android:id="@+id/topic_text_item"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Cliquez ici pour avoir tous les contenus maths."
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"/>
+    </LinearLayout>
+</RelativeLayout>
+
