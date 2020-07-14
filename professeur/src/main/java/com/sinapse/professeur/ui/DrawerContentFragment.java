@@ -1,5 +1,6 @@
 package com.sinapse.professeur.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.sinapse.professeur.R;
 
@@ -60,6 +62,15 @@ public class DrawerContentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_drawer_content, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_drawer_content, container, false);
+
+        final Intent intent = new Intent(getActivity(), EdikContentByClass.class);
+        final Button btn = rootView.findViewById(R.id.btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(intent);
+            }
+        });
+        return rootView;
     }
 }

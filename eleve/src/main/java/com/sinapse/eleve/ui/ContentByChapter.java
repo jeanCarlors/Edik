@@ -1,4 +1,4 @@
-package com.sinapse.parent.ui;
+package com.sinapse.eleve.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,58 +15,57 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
-import com.sinapse.parent.R;
-import com.sinapse.parent.ui.helper.TopicAdapter;
+import com.sinapse.eleve.R;
+import com.sinapse.eleve.ui.helper.ChapterAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContentDetails extends AppCompatActivity {
+public class ContentByChapter extends AppCompatActivity {
 
-    private RecyclerView topicRecyclerView;
-    private TopicAdapter topicAdapter;
-    private List<String> topicList = new ArrayList<>();
+    private RecyclerView chapterRecyclerView;
+    private ChapterAdapter chapterAdapter;
+    private List<String> chapterList = new ArrayList<>();
 
-    private Intent intent;
-    private Bundle bundle;
+    Intent intent;
+    Bundle bundle;
 
-    private static final int PICK_PDF_FILE = 2;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private StorageReference storageRef = storage.getReference();
-    StorageReference rootContentTopic = storage.getReference().child("/Edik Content");
+    private StorageReference rootContentSubject = storage.getReference().child("/Edik Content");
     private String rootUrl = "gs://edik-6adf5.appspot.com";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_content_details);
+        setContentView(R.layout.activity_content_by_chapter);
+
         intent = getIntent();
         bundle = intent.getExtras();
-        TextView topicTextView = findViewById(R.id.header_topic_text_view);
-        String root = "/";
-        String pathTopic = "/" + (bundle.getString("chapter").replaceFirst("-", "/"));
-        Log.d("test4",pathTopic);
-        topicTextView.setText("LES CONTENUS DE SINAPSE DU " + bundle.getString("chapter"));
-        openContentTopic(pathTopic);
+        TextView chapterTextView = findViewById(R.id.header_chapter_text_view);
+        chapterTextView.setText("LES CONTENUS DE SINAPSE DU " + bundle.getString("subject")
+                .replaceFirst("/", " ").replace("/", "-"));
+
+        chapterRecyclerView = findViewById(R.id.chapter_recycler_view);
+        chapterAdapter = new ChapterAdapter(getApplicationContext(), (ArrayList<String>) chapterList);
+        chapterRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        chapterRecyclerView.setAdapter(chapterAdapter);
+
+        openContentChapter(bundle.getString("subject"));
     }
 
-    public void openContentTopic(final String topic){
-        rootContentTopic.child(topic).listAll()
+    public void openContentChapter(final String chapter){
+        rootContentSubject.child(chapter).listAll()
                 .addOnSuccessListener(new OnSuccessListener<ListResult>() {
                     @Override
                     public void onSuccess(ListResult listResult) {
-                        Log.d("topic", String.valueOf(listResult.getPrefixes().size()));
+                        Log.d("chapter", chapter);
                         for (StorageReference item : listResult.getPrefixes()) {
-                            topicList.add(item.getName());
+                            chapterList.add(item.getName());
                         }
-                        topicRecyclerView = findViewById(R.id.topic_recycler_view);
-                        topicAdapter = new TopicAdapter(getApplicationContext(), (ArrayList<String>) topicList);
-                        topicRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                        //topicRecyclerView.setHasFixedSize(true);
-                        topicRecyclerView.setAdapter(topicAdapter);
-
-
+                        chapterRecyclerView.setAdapter(chapterAdapter);
+                        chapterAdapter.notifyDataSetChanged();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

@@ -1,4 +1,4 @@
-package com.sinapse.direction.ui.helper;
+package com.sinapse.professeur.ui.helper;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,7 +20,7 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
-import com.sinapse.direction.R;
+import com.sinapse.professeur.R;
 
 import java.io.File;
 import java.io.IOException;
@@ -137,18 +137,6 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
         }
 
         private void downloadContents(StorageReference storageReference, File file, final int resultItemsSize, final int itemsNumber, final Intent intent, final View view) throws IOException {
-            //StorageReference gsReference = storage.getReferenceFromUrl("rootUrl" + storageReference.getPath());
-            //final Intent successIntent = new Intent(this, PdfViewer.class);
-            //final Intent failureIntent = new Intent(this, Home.class);
-
-            //Toast.makeText(getApplicationContext(), "Downloading ...", Toast.LENGTH_LONG).show();
-        /*File path = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DOWNLOADS);
-        File content = new File(path+"/Content");
-        final File test = new File(content + "/.content");
-        final File file = new File(test + storageReference.getPath());
-        file.createNewFile();*/
-
             storageReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
@@ -162,7 +150,6 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
                 @Override
                 public void onFailure(@NonNull Exception exception) {
                     exception.printStackTrace();
-                   // startActivity(failureIntent);
                 }
             });
 

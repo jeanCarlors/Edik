@@ -1,4 +1,4 @@
-package com.sinapse.direction.ui.helper;
+package com.sinapse.eleve.ui.helper;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,7 +20,7 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
-import com.sinapse.direction.R;
+import com.sinapse.eleve.R;
 
 import java.io.File;
 import java.io.IOException;
@@ -110,7 +110,8 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
                             for (StorageReference item : listResult.getItems()) {
                                 itemsNumber++;
                             File file = new File(topicDirectory +"/"+ item.getName());
-                                Log.d("inTopic", file.getName());
+                                //Log.d("inTopic", file.getName());
+                                Log.d("inTopic", topicPath);
                             if(file.exists() && file.length() != 0L){
                                 if(itemsNumber == size){
                                    v.getContext().startActivity(successIntent);

@@ -8,10 +8,10 @@
     tools:context=".ui.ContentList">
 
     <TextView
-        android:id="@+id/header_topic_text_view"
+        android:id="@+id/header_subject_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="LES CONTENUS DE SINAPSE DU NS I - MATHS"
+        android:text="LES CONTENUS DE SINAPSE DU NS I"
         android:background="@color/colorPrimary"
         android:gravity="center"
         android:paddingTop="5dp"
@@ -22,12 +22,12 @@
         android:layout_marginBottom="10dp"
         android:textColor="#ffffff"/>
 
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/topic_recycler_view"
+        android:id="@+id/subject_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/header_topic_text_view">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/header_subject_text_view">
 
     </androidx.recyclerview.widget.RecyclerView>
+
 </RelativeLayout>

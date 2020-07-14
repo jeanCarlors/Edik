@@ -8,7 +8,7 @@
     tools:context=".ui.ContentList">
 
     <TextView
-        android:id="@+id/header_topic_text_view"
+        android:id="@+id/header_chapter_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="LES CONTENUS DE SINAPSE DU NS I - MATHS"
@@ -24,10 +24,9 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/topic_recycler_view"
+        android:id="@+id/chapter_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/header_topic_text_view">
-
+        android:layout_below="@id/header_chapter_text_view">
     </androidx.recyclerview.widget.RecyclerView>
 </RelativeLayout>

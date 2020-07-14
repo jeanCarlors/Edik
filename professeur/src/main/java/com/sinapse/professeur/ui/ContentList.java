@@ -1,4 +1,4 @@
-package com.sinapse.parent.ui;
+package com.sinapse.professeur.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,57 +15,49 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
-import com.sinapse.parent.R;
-import com.sinapse.parent.ui.helper.TopicAdapter;
+import com.sinapse.professeur.R;
+import com.sinapse.professeur.ui.helper.SubjectAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContentDetails extends AppCompatActivity {
-
-    private RecyclerView topicRecyclerView;
-    private TopicAdapter topicAdapter;
-    private List<String> topicList = new ArrayList<>();
+public class ContentList extends AppCompatActivity {
+    private RecyclerView subjectRecyclerView;
+    private SubjectAdapter subjectAdapter;
+    private List<String> subjectList = new ArrayList<>();
 
     private Intent intent;
     private Bundle bundle;
 
-    private static final int PICK_PDF_FILE = 2;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private StorageReference storageRef = storage.getReference();
-    StorageReference rootContentTopic = storage.getReference().child("/Edik Content");
+    private StorageReference rootContentSubject = storage.getReference().child("/Edik Content");
     private String rootUrl = "gs://edik-6adf5.appspot.com";
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_content_details);
+        setContentView(R.layout.activity_content_list);
         intent = getIntent();
         bundle = intent.getExtras();
-        TextView topicTextView = findViewById(R.id.header_topic_text_view);
-        String root = "/";
-        String pathTopic = "/" + (bundle.getString("chapter").replaceFirst("-", "/"));
-        Log.d("test4",pathTopic);
-        topicTextView.setText("LES CONTENUS DE SINAPSE DU " + bundle.getString("chapter"));
-        openContentTopic(pathTopic);
+        openContentSubject(bundle.getString("grade"));
+        TextView subjectTextView = findViewById(R.id.header_subject_text_view);
+        subjectTextView.setText("LES CONTENUS DE SINAPSE DU " + bundle.getString("grade").substring(1));
+
     }
 
-    public void openContentTopic(final String topic){
-        rootContentTopic.child(topic).listAll()
+    public void openContentSubject(String grade){
+        rootContentSubject.child(grade).listAll()
                 .addOnSuccessListener(new OnSuccessListener<ListResult>() {
                     @Override
                     public void onSuccess(ListResult listResult) {
-                        Log.d("topic", String.valueOf(listResult.getPrefixes().size()));
+                        Log.d("test", String.valueOf(listResult.getPrefixes().size()));
                         for (StorageReference item : listResult.getPrefixes()) {
-                            topicList.add(item.getName());
+                            subjectList.add(item.getName());
                         }
-                        topicRecyclerView = findViewById(R.id.topic_recycler_view);
-                        topicAdapter = new TopicAdapter(getApplicationContext(), (ArrayList<String>) topicList);
-                        topicRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                        //topicRecyclerView.setHasFixedSize(true);
-                        topicRecyclerView.setAdapter(topicAdapter);
-
+                        subjectRecyclerView = findViewById(R.id.subject_recycler_view);
+                        subjectAdapter = new SubjectAdapter(getApplicationContext(), (ArrayList<String>) subjectList);
+                        subjectRecyclerView.setAdapter(subjectAdapter);
+                        subjectRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
                     }
                 })

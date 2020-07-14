@@ -1,20 +1,19 @@
-package com.sinapse.direction.ui.helper;
+package com.sinapse.eleve.ui.helper;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sinapse.direction.R;
-import com.sinapse.direction.ui.ContentByChapter;
+//import com.sinapse.direction.ui.ContentByChapter;
+import com.sinapse.eleve.R;
+import com.sinapse.eleve.ui.ContentByChapter;
 
 import java.util.ArrayList;
 import java.util.List;

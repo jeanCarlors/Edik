@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.helper.PdfViewer"></activity>
+        <activity android:name=".ui.helper.ContentViewer"></activity>
         <activity android:name=".ui.PresenceListByGrade" />
         <activity android:name=".ui.ContentByChapter" />
         <activity android:name=".ui.LoginRecovery" />

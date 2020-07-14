@@ -1,4 +1,4 @@
-package com.sinapse.direction.ui.helper;
+package com.sinapse.parent.ui.helper;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sinapse.direction.R;
-import com.sinapse.direction.ui.ContentDetails;
+import com.sinapse.parent.R;
+import com.sinapse.parent.ui.ContentDetails;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -46,6 +46,11 @@ public class ContentByChapter extends AppCompatActivity {
         chapterTextView.setText("LES CONTENUS DE SINAPSE DU " + bundle.getString("subject")
                 .replaceFirst("/", " ").replace("/", "-"));
 
+        chapterRecyclerView = findViewById(R.id.chapter_recycler_view);
+        chapterAdapter = new ChapterAdapter(getApplicationContext(), (ArrayList<String>) chapterList);
+        chapterRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        chapterRecyclerView.setAdapter(chapterAdapter);
+
         openContentChapter(bundle.getString("subject"));
     }
 
@@ -59,15 +64,12 @@ public class ContentByChapter extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<ListResult>() {
                     @Override
                     public void onSuccess(ListResult listResult) {
-                        Log.d("test", String.valueOf(listResult.getPrefixes().size()));
+                        Log.d("chapter", String.valueOf(listResult.getPrefixes().size()));
                         for (StorageReference item : listResult.getPrefixes()) {
                             chapterList.add(item.getName());
                         }
-                        chapterRecyclerView = findViewById(R.id.chapter_recycler_view);
-                        chapterAdapter = new ChapterAdapter(getApplicationContext(), (ArrayList<String>) chapterList);
                         chapterRecyclerView.setAdapter(chapterAdapter);
-                        chapterRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-
+                        chapterAdapter.notifyDataSetChanged();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
