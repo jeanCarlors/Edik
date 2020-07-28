@@ -5,7 +5,7 @@
 
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="LES CONTENUS DE SINAPSE"
@@ -18,153 +18,23 @@
         android:layout_marginRight="10dp"
         android:textColor="#ffffff"/>
 
-    <ScrollView
-        android:id="@+id/scrollView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/free_content_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textView">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:orientation="horizontal"
-                >
-                <ImageButton
-                    android:layout_width="150dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/edik_content"
-                    android:scaleType="fitCenter"
-                    android:background="#ffffff"/>
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?android:attr/listDivider" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="Ce contenu concerne les electro-aimants."
-                    android:gravity="center"
-                    android:paddingLeft="10dp"/>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:orientation="horizontal"
-                >
-                <ImageButton
-                    android:layout_width="150dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/edik_content"
-                    android:scaleType="fitCenter"
-                    android:background="#ffffff"/>
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?android:attr/listDivider" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="Ce contenu concerne les electro-aimants."
-                    android:gravity="center"
-                    android:paddingLeft="10dp"/>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:orientation="horizontal"
-                >
-                <ImageButton
-                    android:layout_width="150dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/edik_content"
-                    android:scaleType="fitCenter"
-                    android:background="#ffffff"/>
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?android:attr/listDivider" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="Ce contenu concerne les electro-aimants."
-                    android:gravity="center"
-                    android:paddingLeft="10dp"/>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:orientation="horizontal"
-                >
-                <ImageButton
-                    android:layout_width="150dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/edik_content"
-                    android:scaleType="fitCenter"
-                    android:background="#ffffff"/>
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?android:attr/listDivider" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="Ce contenu concerne les electro-aimants."
-                    android:gravity="center"
-                    android:paddingLeft="10dp"/>
-            </LinearLayout>
-
-        </LinearLayout>
-    </ScrollView>
+        android:layout_height="400dp"
+        android:layout_below="@id/text_view"/>
 
     <Button
         android:id="@+id/btn"
         android:layout_width="100dp"
         android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="20dp"
         android:background="@color/colorPrimary"
-        android:layout_below="@id/scrollView"
+        android:layout_below="@id/free_content_recycler_view"
         android:text="Voir tout"
         android:gravity="center"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
         android:textColor="#ffffff"/>
 </RelativeLayout>

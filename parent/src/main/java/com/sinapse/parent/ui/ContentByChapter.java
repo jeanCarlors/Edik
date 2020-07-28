@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +27,7 @@ public class ContentByChapter extends AppCompatActivity {
     private ChapterAdapter chapterAdapter;
     private List<String> chapterList = new ArrayList<>();
 
+    private ProgressDialog progressDialog;
     Intent intent;
     Bundle bundle;
 
@@ -38,6 +40,12 @@ public class ContentByChapter extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content_by_chapter);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Chargement de la page...");
+        progressDialog.setMessage("Si le chargement de page tarde, vérifier votre connexion d'internet.");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
         intent = getIntent();
         bundle = intent.getExtras();
@@ -63,6 +71,7 @@ public class ContentByChapter extends AppCompatActivity {
                             chapterList.add(item.getName());
                         }
                         chapterRecyclerView.setAdapter(chapterAdapter);
+                        progressDialog.dismiss();
                         chapterAdapter.notifyDataSetChanged();
                     }
                 })

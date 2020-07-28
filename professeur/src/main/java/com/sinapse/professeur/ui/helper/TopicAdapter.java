@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,7 +64,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
         ImageButton topicImageItemView;
         TextView topicTextView;
         TopicAdapter topicAdapter;
-
+        ProgressBar progressBar;
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
         StorageReference rootContentTopic = storage.getReference().child("/Edik Content");
@@ -77,6 +78,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
             topicTextItemView = (TextView) itemView.findViewById(R.id.topic_text_item);
             topicTextView = (TextView) itemView.findViewById(R.id.topic_text);
             topicImageItemView = (ImageButton) itemView.findViewById(R.id.topic_img_item);
+            progressBar = itemView.findViewById(R.id.progressbar);
             this.topicAdapter = topicAdapter;
 
             topicTextItemView.setOnClickListener(this);
@@ -84,6 +86,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
 
         @Override
         public void onClick(final View v) {
+            progressBar.setVisibility(View.VISIBLE);
             TextView text = v.getRootView().findViewById(R.id.header_topic_text_view);
             String partOne = text.getText().toString().substring(28);
             String partTwo = topicTextView.getText().toString();
@@ -113,6 +116,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
                                 Log.d("inTopic", file.getName());
                             if(file.exists() && file.length() != 0L){
                                 if(itemsNumber == size){
+                                    progressBar.setVisibility(View.INVISIBLE);
                                    v.getContext().startActivity(successIntent);
                                 }else{
                                    continue;
@@ -120,7 +124,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
                             }else{
                                     try {
                                         file.createNewFile();
-                                        downloadContents(item, file, size, itemsNumber, successIntent, v);
+                                        downloadContents(item, file, size, itemsNumber, successIntent, v, progressBar);
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }
@@ -136,13 +140,14 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
                     });
         }
 
-        private void downloadContents(StorageReference storageReference, File file, final int resultItemsSize, final int itemsNumber, final Intent intent, final View view) throws IOException {
+        private void downloadContents(StorageReference storageReference, File file, final int resultItemsSize, final int itemsNumber, final Intent intent, final View view, final ProgressBar progressBar) throws IOException {
             storageReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                     Toast.makeText(itemView.getContext(), "Downloading...", Toast.LENGTH_LONG).show();
                     if( itemsNumber == resultItemsSize){
-                      Toast.makeText(itemView.getContext(), "Download complete", Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.INVISIBLE);
+                        Toast.makeText(itemView.getContext(), "Download complete", Toast.LENGTH_LONG).show();
                           view.getContext().startActivity(intent);
                         }
                 }

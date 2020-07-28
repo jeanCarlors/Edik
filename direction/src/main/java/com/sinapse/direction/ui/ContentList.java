@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,6 +29,8 @@ public class ContentList extends AppCompatActivity {
     private SubjectAdapter subjectAdapter;
     private List<String> subjectList = new ArrayList<>();
 
+    private ProgressDialog progressDialog;
+
     private Intent intent;
     private Bundle bundle;
 
@@ -40,9 +43,16 @@ public class ContentList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content_list);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Chargement de la page...");
+        progressDialog.setMessage("Si le chargement de page tarde, vérifier votre connexion d'internet.");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
         intent = getIntent();
         bundle = intent.getExtras();
-        openContentSubject(bundle.getString("grade"));
+        openContentSubject(bundle.getString("grade"), progressDialog);
         TextView subjectTextView = findViewById(R.id.header_subject_text_view);
         subjectTextView.setText("LES CONTENUS DE SINAPSE DU " + bundle.getString("grade").substring(1));
     }
@@ -52,7 +62,7 @@ public class ContentList extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openContentSubject(String grade){
+    public void openContentSubject(String grade, final ProgressDialog progressDialog){
         rootContentSubject.child(grade).listAll()
                 .addOnSuccessListener(new OnSuccessListener<ListResult>() {
                     @Override
@@ -62,6 +72,7 @@ public class ContentList extends AppCompatActivity {
                             subjectList.add(item.getName());
                         }
                         subjectRecyclerView = findViewById(R.id.subject_recycler_view);
+                        progressDialog.dismiss();
                         subjectAdapter = new SubjectAdapter(getApplicationContext(), (ArrayList<String>) subjectList);
                         subjectRecyclerView.setAdapter(subjectAdapter);
                         subjectRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));

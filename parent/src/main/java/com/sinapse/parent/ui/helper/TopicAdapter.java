@@ -1,5 +1,7 @@
 package com.sinapse.parent.ui.helper;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
@@ -8,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +22,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
 import com.sinapse.parent.R;
 
 import java.io.File;
@@ -33,15 +39,18 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
     private List<String> topicList = new ArrayList<>();
     private LayoutInflater topicInflater;
 
+
     public TopicAdapter(Context context, ArrayList<String> topicList){
         topicInflater = LayoutInflater.from(context);
         this.topicList = topicList;
+
     }
 
     @NonNull
     @Override
     public TopicAdapter.TopicViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View topicItemView = topicInflater.inflate(R.layout.topic_item_layout, parent, false);
+        //progressDialog.show();
         return new TopicViewHolder(topicItemView, this);
     }
 
@@ -51,6 +60,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
         holder.topicTextView.setText(current);
         holder.topicTextItemView.setText("Cliquer pour avoir les contenus de "+ current);
         holder.topicImageItemView.setImageResource(R.drawable.edik_content);
+        //progressDialog.dismiss();
     }
 
     @Override
@@ -63,6 +73,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
         ImageButton topicImageItemView;
         TextView topicTextView;
         TopicAdapter topicAdapter;
+        ProgressBar progressBar;
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
@@ -77,6 +88,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
             topicTextItemView = (TextView) itemView.findViewById(R.id.topic_text_item);
             topicTextView = (TextView) itemView.findViewById(R.id.topic_text);
             topicImageItemView = (ImageButton) itemView.findViewById(R.id.topic_img_item);
+            progressBar = itemView.findViewById(R.id.progressbar);
             this.topicAdapter = topicAdapter;
 
             topicTextItemView.setOnClickListener(this);
@@ -84,7 +96,9 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
 
         @Override
         public void onClick(final View v) {
+            progressBar.setVisibility(View.VISIBLE);
             TextView text = v.getRootView().findViewById(R.id.header_topic_text_view);
+            //ProgressBar progressBar = v.getRootView().findViewById(R.id.progressbar);
             String partOne = text.getText().toString().substring(28);
             String partTwo = topicTextView.getText().toString();
             final String topicPath = "/"+partOne.replaceFirst("-","/")+"/"+partTwo;
@@ -114,6 +128,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
                                 Log.d("inTopic", topicPath);
                             if(file.exists() && file.length() != 0L){
                                 if(itemsNumber == size){
+                                    progressBar.setVisibility(View.INVISIBLE);
                                    v.getContext().startActivity(successIntent);
                                 }else{
                                    continue;
@@ -121,7 +136,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
                             }else{
                                     try {
                                         file.createNewFile();
-                                        downloadContents(item, file, size, itemsNumber, successIntent, v);
+                                        downloadContents(item, file, size, itemsNumber, successIntent, v, progressBar);
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }
@@ -137,7 +152,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
                     });
         }
 
-        private void downloadContents(StorageReference storageReference, File file, final int resultItemsSize, final int itemsNumber, final Intent intent, final View view) throws IOException {
+        private void downloadContents(StorageReference storageReference, File file, final int resultItemsSize, final int itemsNumber, final Intent intent, final View view, final ProgressBar progressBar) throws IOException {
             //StorageReference gsReference = storage.getReferenceFromUrl("rootUrl" + storageReference.getPath());
             //final Intent successIntent = new Intent(this, PdfViewer.class);
             //final Intent failureIntent = new Intent(this, Home.class);
@@ -149,21 +164,32 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
         final File test = new File(content + "/.content");
         final File file = new File(test + storageReference.getPath());
         file.createNewFile();*/
+            //final ProgressBar progressBar = view.findViewById(R.id.progressbar);
 
-            storageReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+
+            Log.d("ProgressBar", "Upload is % done ...");
+            final StorageTask<FileDownloadTask.TaskSnapshot> taskSnapshotStorageTask = storageReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                     Toast.makeText(itemView.getContext(), "Downloading...", Toast.LENGTH_LONG).show();
-                    if( itemsNumber == resultItemsSize){
-                      Toast.makeText(itemView.getContext(), "Download complete", Toast.LENGTH_LONG).show();
-                          view.getContext().startActivity(intent);
-                        }
+                    if (itemsNumber == resultItemsSize) {
+                        Toast.makeText(itemView.getContext(), "Download complete", Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.INVISIBLE);
+                        view.getContext().startActivity(intent);
+                    }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
                     exception.printStackTrace();
-                   // startActivity(failureIntent);
+                    // startActivity(failureIntent);
+                }
+            }).addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(@NonNull FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    //int progress = (int) (Math.round(100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount());
+                    //progressBar.setProgress(progress);
+                    //Log.d("ProgressBar", "Upload is " + progress + "% done ...");
                 }
             });
 

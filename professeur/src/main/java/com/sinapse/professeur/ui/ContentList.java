@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,7 +26,7 @@ public class ContentList extends AppCompatActivity {
     private RecyclerView subjectRecyclerView;
     private SubjectAdapter subjectAdapter;
     private List<String> subjectList = new ArrayList<>();
-
+    private ProgressDialog progressDialog;
     private Intent intent;
     private Bundle bundle;
 
@@ -37,6 +38,12 @@ public class ContentList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content_list);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Chargement de la page ...");
+        progressDialog.setMessage("Si le chargement de page tarde, vérifier votre connexion d'internet.");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
         intent = getIntent();
         bundle = intent.getExtras();
         openContentSubject(bundle.getString("grade"));
@@ -55,6 +62,7 @@ public class ContentList extends AppCompatActivity {
                             subjectList.add(item.getName());
                         }
                         subjectRecyclerView = findViewById(R.id.subject_recycler_view);
+                        progressDialog.dismiss();
                         subjectAdapter = new SubjectAdapter(getApplicationContext(), (ArrayList<String>) subjectList);
                         subjectRecyclerView.setAdapter(subjectAdapter);
                         subjectRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));

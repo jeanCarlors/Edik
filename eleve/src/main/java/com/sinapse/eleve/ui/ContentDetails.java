@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,7 +27,7 @@ public class ContentDetails extends AppCompatActivity {
     private RecyclerView topicRecyclerView;
     private TopicAdapter topicAdapter;
     private List<String> topicList = new ArrayList<>();
-
+    private ProgressDialog progressDialog;
     private Intent intent;
     private Bundle bundle;
 
@@ -40,6 +41,11 @@ public class ContentDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content_details);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Chargement de la page...");
+        progressDialog.setMessage("Si le chargement de page tarde, vérifier votre connexion d'internet.");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
         intent = getIntent();
         bundle = intent.getExtras();
         TextView topicTextView = findViewById(R.id.header_topic_text_view);
@@ -60,6 +66,7 @@ public class ContentDetails extends AppCompatActivity {
                             topicList.add(item.getName());
                         }
                         topicRecyclerView = findViewById(R.id.topic_recycler_view);
+                        progressDialog.dismiss();
                         topicAdapter = new TopicAdapter(getApplicationContext(), (ArrayList<String>) topicList);
                         topicRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                         //topicRecyclerView.setHasFixedSize(true);
