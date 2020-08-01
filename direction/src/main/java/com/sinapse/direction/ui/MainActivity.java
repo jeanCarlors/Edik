@@ -17,6 +17,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 import com.sinapse.direction.R;
+import com.sinapse.direction.databinding.ActivityMainBinding;
 import com.sinapse.direction.ui.helper.FreeContentAdapter;
 import com.sinapse.direction.ui.helper.TopicAdapter;
 
@@ -35,16 +36,22 @@ public class MainActivity extends AppCompatActivity {
     StorageReference rootContentTopic = storage.getReference().child("/Edik Content");
     private String rootUrl = "gs://edik-6adf5.appspot.com";
 
+    ActivityMainBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot()); //R.layout.activity_main
+        setSupportActionBar(binding.toolbar);
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Chargement de la page ...");
         progressDialog.setMessage("Si le chargement de page tarde, vérifier votre connexion d'internet.");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        openContentTopic("/Free Content/NS I");
+        openContentTopic("/Free Content");
     }
 
     public void onLoginBtnClicked(View view) {

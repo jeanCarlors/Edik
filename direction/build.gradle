@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.sinapse.direction"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -20,6 +20,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    buildFeatures {
+        viewBinding true
     }
 
 }

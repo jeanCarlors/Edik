@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,7 +63,7 @@ public class FreeContentAdapter extends RecyclerView.Adapter<FreeContentAdapter.
 
     public class FreeContentViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView freeContentTextItemView;
-        ImageButton freeContentImageItemView;
+        ImageView freeContentImageItemView;
         TextView freeContentTextView;
         ProgressBar progressBar;
         FreeContentAdapter freeContentAdapter;
@@ -79,7 +80,7 @@ public class FreeContentAdapter extends RecyclerView.Adapter<FreeContentAdapter.
             super(itemView);
             freeContentTextItemView = (TextView) itemView.findViewById(R.id.free_content_text_item);
             freeContentTextView = (TextView) itemView.findViewById(R.id.free_content_text);
-            freeContentImageItemView = (ImageButton) itemView.findViewById(R.id.free_content_img_item);
+            freeContentImageItemView = (ImageView) itemView.findViewById(R.id.free_content_img_item);
             progressBar = itemView.findViewById(R.id.progressbar);
             this.freeContentAdapter = freeContentAdapter;
 

@@ -1,37 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="140dp"
-    android:layout_marginTop="10dp"
-    android:layout_marginBottom="10dp"
-    android:layout_marginRight="10dp"
-    android:layout_marginLeft="10dp">
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:padding="10dp"
+    android:layout_marginBottom="5dp">
 
-    <TextView
-        android:id="@+id/free_content_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="SUbject 1"
-        android:gravity="left"
-        android:paddingLeft="10dp"
-        android:textAllCaps="true"/>
+    <ImageView
+        android:contentDescription="@string/app_name"
+        android:id="@+id/free_content_img_item"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/edik_content"
+        android:scaleType="centerCrop"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"/>
+
+
 
     <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/free_content_img_item"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/free_content_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SUbject 1"
+            android:textColor="#000"
+            android:singleLine="false"
+            android:maxLines="4"/>
+
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/free_content_statut_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_cloud_download_24"
+                android:contentDescription="@string/app_name"
+                android:layout_marginRight="10dp"/>
+
+            <TextView
+                android:id="@+id/free_content_statut_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:text="Télécharger"/>
+
+
+            <ProgressBar
+                android:id="@+id/progressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_below="@+id/linear_layout"
+                android:max="100"
+                android:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/free_content_download_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:text="0/0"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:visibility="gone"
         android:id="@+id/linear_layout"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:orientation="horizontal"
-        android:layout_below="@id/free_content_text"
         android:background="@drawable/shadow">
 
-        <ImageButton
-            android:id="@+id/free_content_img_item"
-            android:layout_width="150dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/edik_content"
-            android:scaleType="fitCenter"
-            android:background="#ffffff"/>
+
 
         <TextView
             android:id="@+id/free_content_text_item"
@@ -44,11 +95,5 @@
             android:paddingRight="10dp"
             android:background="#ffffff"/>
     </LinearLayout>
-    <ProgressBar
-        android:id="@+id/progressbar"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_below="@+id/linear_layout"
-        android:max="100"
-        android:visibility="invisible"/>
+
 </RelativeLayout>

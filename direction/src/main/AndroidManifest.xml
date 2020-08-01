@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.helper.ContentViewer"></activity>
+        <activity android:name=".ui.helper.ContentViewer" />
         <activity android:name=".ui.PresenceListByGrade" />
         <activity android:name=".ui.ContentByChapter" />
         <activity android:name=".ui.LoginRecovery" />
@@ -45,7 +45,10 @@
         <activity android:name=".ui.School" />
         <activity android:name=".ui.EdikContentByGrade" />
         <activity android:name=".ui.EdikContent" />
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.MainActivity"
+
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
