@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.setMessage("Si le chargement de page tarde, vérifier votre connexion d'internet.");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        openContentTopic("/Free Content/NS I");
+        openContentTopic("/Free Content");
     }
 
     public void onLoginBtnClicked(View view) {

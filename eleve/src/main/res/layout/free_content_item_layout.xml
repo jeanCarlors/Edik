@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Subject 1 Subject 1 Subject 1 Subject 1 Subject 1 Subject 1"
+        android:text="SUbject 1"
         android:gravity="left"
         android:paddingLeft="10dp"
         android:textAllCaps="true"/>

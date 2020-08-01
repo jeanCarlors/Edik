@@ -46,6 +46,7 @@
         <activity android:name=".ui.EdikContentByGrade" />
         <activity android:name=".ui.EdikContent" />
         <activity android:name=".ui.MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
