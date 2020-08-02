@@ -21,6 +21,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 import com.sinapse.direction.R;
+import com.sinapse.direction.databinding.ActivityContentDetailsBinding;
 import com.sinapse.direction.ui.helper.ContentViewer;
 import com.sinapse.direction.ui.helper.TopicAdapter;
 
@@ -45,11 +46,14 @@ public class ContentDetails extends AppCompatActivity {
     StorageReference rootContentTopic = storage.getReference().child("/Edik Content");
     private String rootUrl = "gs://edik-6adf5.appspot.com";
 
+    ActivityContentDetailsBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_content_details);
+        binding = ActivityContentDetailsBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot()); //R.layout.activity_content_details
+        setSupportActionBar(binding.toolbar);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Chargement de la page...");
@@ -64,6 +68,9 @@ public class ContentDetails extends AppCompatActivity {
         String pathTopic = "/" + (bundle.getString("chapter").replaceFirst("-", "/"));
         Log.d("test4",pathTopic);
         topicTextView.setText("LES CONTENUS DE SINAPSE DU " + bundle.getString("chapter"));
+
+        setTitle(bundle.getString("title"));
+
         openContentTopic(pathTopic, progressDialog);
     }
 

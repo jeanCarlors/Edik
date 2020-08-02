@@ -73,6 +73,7 @@ public class DrawerHome extends AppCompatActivity {
         Class fragmentClass;
         switch(menuItem.getItemId()) {
             case R.id.drawer_Content:
+            default:
                 fragmentClass = DrawerContentFragment.class;
                 break;
             case R.id.drawer_admin:
@@ -91,8 +92,6 @@ public class DrawerHome extends AppCompatActivity {
                 fragmentClass = DrawerMessageFragment.class;
                 break;
 
-            default:
-                fragmentClass = DrawerContentFragment.class;
         }
 
         try {

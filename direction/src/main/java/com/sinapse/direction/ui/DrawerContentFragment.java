@@ -40,6 +40,7 @@ public class DrawerContentFragment extends Fragment {
     private StorageReference storageRef = storage.getReference();
     StorageReference rootContentTopic = storage.getReference().child("/Edik Content");
     private String rootUrl = "gs://edik-6adf5.appspot.com";
+
     public DrawerContentFragment() {
         // Required empty public constructor
     }
@@ -79,8 +80,8 @@ public class DrawerContentFragment extends Fragment {
                             freeContentList.add(item.getName());
                         }
                         freeContentRecyclerView = view.findViewById(R.id.free_content_recycler_view);
-                        freeContentAdapter = new FreeContentAdapter(view.getContext(), (ArrayList<String>) freeContentList);
-                        freeContentRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+                        freeContentAdapter = new FreeContentAdapter(getContext(), (ArrayList<String>) freeContentList);
+                        freeContentRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                         progressDialog.dismiss();
                         freeContentRecyclerView.setAdapter(freeContentAdapter);
 

@@ -19,6 +19,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 import com.sinapse.direction.R;
+import com.sinapse.direction.databinding.ActivityContentByChapterBinding;
 import com.sinapse.direction.ui.helper.ChapterAdapter;
 import com.sinapse.direction.ui.helper.SubjectAdapter;
 
@@ -40,10 +41,14 @@ public class ContentByChapter extends AppCompatActivity {
     private StorageReference rootContentSubject = storage.getReference().child("/Edik Content");
     private String rootUrl = "gs://edik-6adf5.appspot.com";
 
+    ActivityContentByChapterBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_content_by_chapter);
+        binding = ActivityContentByChapterBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());//R.layout.activity_content_by_chapter
+        setSupportActionBar(binding.toolbar);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Chargement de la page...");
@@ -56,6 +61,9 @@ public class ContentByChapter extends AppCompatActivity {
         TextView chapterTextView = findViewById(R.id.header_chapter_text_view);
         chapterTextView.setText("LES CONTENUS DE SINAPSE DU " + bundle.getString("subject")
                 .replaceFirst("/", " ").replace("/", "-"));
+
+        setTitle(bundle.getString("title"));
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         chapterRecyclerView = findViewById(R.id.chapter_recycler_view);
         chapterAdapter = new ChapterAdapter(getApplicationContext(), (ArrayList<String>) chapterList);

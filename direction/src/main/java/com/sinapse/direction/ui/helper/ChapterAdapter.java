@@ -40,8 +40,8 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ChapterV
     public void onBindViewHolder(@NonNull ChapterAdapter.ChapterViewHolder holder, int position) {
         String current = chapterList.get(position);
         holder.chapterTextView.setText(current);
-        holder.chapterTextItemView.setText("Cliquer pour avoir les contenus de "+current);
-        holder.chapterImageItemView.setImageResource(R.drawable.edik_content);
+        holder.chapterTextItemView.setText(current.replace("Chapitre", ""));
+        //holder.chapterImageItemView.setImageResource(R.drawable.edik_content);
     }
 
     @Override
@@ -63,6 +63,7 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ChapterV
             this.chapterAdapter = chapterAdapter;
 
             chapterTextItemView.setOnClickListener(this);
+            itemView.setOnClickListener(this);
         }
 
         @Override
@@ -74,6 +75,7 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ChapterV
             String partOne = text.getText().toString().substring(28);
             String partTwo = chapterTextView.getText().toString();
             intent.putExtra("chapter", "/"+partOne+"/"+partTwo);
+            intent.putExtra("title", chapterTextItemView.getText().toString());
             v.getContext().startActivity(intent);
         }
     }

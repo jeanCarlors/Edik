@@ -1,151 +1,246 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.EdikContentByClass">
-    <TextView
-        android:id="@+id/textView"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="LES CONTENUS DE SINAPSE PAR CLASSE"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="20dp"
-        android:textColor="#ffffff"/>
-    <ScrollView
-        android:layout_below="@id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <LinearLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimaryDark"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".ui.EdikContentByClass">
+
+        <TextView
+            android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:orientation="horizontal">
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="LES CONTENUS DE SINAPSE PAR CLASSE"
+            android:textColor="#ffffff"
+            android:visibility="gone" />
 
-                <ImageButton
-                    android:id="@+id/imgbtn1"
-                    android:layout_width="150dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/grade"
-                    android:scaleType="fitCenter"
-                    android:background="#ffffff" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="Cliquez pour voir tous les contenus du NS I"
-                    android:gravity="center"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="40dp"
-                    android:clickable="true"
-                    android:onClick="onNSIClicked"/>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/textView">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp">
 
-                <ImageButton
-                    android:id="@+id/imgbtn2"
-                    android:layout_width="150dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/grade"
-                    android:scaleType="fitCenter"
-                    android:background="#ffffff" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:background="#fff"
+                    android:onClick="onNSIClicked"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="Cliquez pour voir tous les contenus du NS II"
-                    android:gravity="center"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="40dp"
-                    android:clickable="true"
-                    android:onClick="onNSIIClicked"/>
+                    <ImageView
+                        android:id="@+id/imgbtn1"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="10dp"
+                        android:background="#ffffff"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/grade" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Classe" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:onClick="onNSIClicked"
+                            android:paddingRight="40dp"
+                            android:text="Nouveau Secondaire I"
+                            android:textColor="#000"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:background="#fff"
+                    android:onClick="onNSIIClicked"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imgbtn2"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="10dp"
+                        android:background="#ffffff"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/grade" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Classe" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:onClick="onNSIIClicked"
+                            android:paddingRight="40dp"
+                            android:text="Nouveau Secondaire II"
+                            android:textColor="#000"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:background="#fff"
+                    android:onClick="onNSIIIClicked"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/imgbtn3"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="10dp"
+                        android:background="#ffffff"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/grade" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Classe" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:onClick="onNSIIIClicked"
+                            android:paddingRight="40dp"
+                            android:text="Nouveau Secondaire III"
+                            android:textColor="#000"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:background="#fff"
+                    android:onClick="onNSIVClicked"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/imgbtn4"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="10dp"
+                        android:background="#ffffff"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/grade" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Classe" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:onClick="onNSIVClicked"
+                            android:paddingRight="40dp"
+                            android:text="Nouveau Secondaire IV"
+                            android:textColor="#000"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
             </LinearLayout>
+        </ScrollView>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/imgbtn3"
-                    android:layout_width="150dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/grade"
-                    android:scaleType="fitCenter"
-                    android:background="#ffffff" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="Cliquez pour voir tous les contenus du NS III"
-                    android:gravity="center"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="40dp"
-                    android:clickable="true"
-                    android:onClick="onNSIIIClicked"/>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/imgbtn4"
-                    android:layout_width="150dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/grade"
-                    android:scaleType="fitCenter"
-                    android:background="#ffffff"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="Cliquez pour voir tous les contenus du NS IV"
-                    android:gravity="center"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="45dp"
-                    android:clickable="true"
-                    android:onClick="onNSIVClicked"/>
-            </LinearLayout>
+    </RelativeLayout>
 
 
-        </LinearLayout>
-    </ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-</RelativeLayout>

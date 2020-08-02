@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
-    android:layout_marginBottom="10dp"
-    android:layout_marginRight="10dp"
-    android:layout_marginLeft="10dp">
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:padding="15dp"
+    android:layout_marginBottom="5dp">
+
+    <ImageView
+        android:contentDescription="@string/app_name"
+        android:id="@+id/subject_img_item"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/history"
+        android:scaleType="centerCrop"
+        android:layout_marginRight="10dp"
+        android:onClick="onMathBtnClicked"/>
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/subject_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_weight="1"
         android:text="SUbject 1"
         android:gravity="left"
@@ -18,29 +29,35 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@id/subject_text"
-        android:background="@drawable/shadow">
+        android:layout_toRightOf="@id/subject_img_item"
+        android:layout_centerVertical="true">
 
-    <ImageButton
-            android:id="@+id/subject_img_item"
-            android:layout_width="150dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/edik_content"
-            android:scaleType="fitCenter"
-            android:background="#ffffff"
-            android:onClick="onMathBtnClicked"/>
 
-        <TextView
-            android:id="@+id/subject_text_item"
-            android:layout_width="150dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Cliquez ici pour avoir tous les contenus maths."
-            android:gravity="center"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:background="#ffffff"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Matière"/>
+
+            <TextView
+                android:id="@+id/subject_text_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cliquez ici pour avoir tous les contenus maths."
+                android:singleLine="false"
+                android:textSize="17sp"
+                android:maxLines="3"
+                android:textColor="#000"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+
     </LinearLayout>
 </RelativeLayout>

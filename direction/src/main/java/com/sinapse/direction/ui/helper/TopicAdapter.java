@@ -33,10 +33,12 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHolder> {
     private List<String> topicList = new ArrayList<>();
     private LayoutInflater topicInflater;
+    private Context context;
 
     public TopicAdapter(Context context, ArrayList<String> topicList){
         topicInflater = LayoutInflater.from(context);
         this.topicList = topicList;
+        this.context = context;
     }
 
     @NonNull
@@ -83,6 +85,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
             this.topicAdapter = topicAdapter;
 
             topicTextItemView.setOnClickListener(this);
+            itemView.setOnClickListener(this);
         }
 
         @Override

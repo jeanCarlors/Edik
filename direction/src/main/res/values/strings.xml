@@ -34,4 +34,9 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="title_activity_main">Accueil</string>
+    <string name="title_activity_class">Classes</string>
+    <string name="title_activity_content_list">Matières</string>
+    <string name="title_activity_content_by_chapter">Chapitres</string>
+    <string name="title_activity_content_details">Cours</string>
 </resources>
