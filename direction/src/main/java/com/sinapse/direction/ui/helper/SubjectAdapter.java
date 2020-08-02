@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,8 +43,25 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.SubjectV
     public void onBindViewHolder(@NonNull SubjectViewHolder holder, int position) {
         String sCurrent = subjectList.get(position);
         holder.subjectTextView.setText(sCurrent);
-        holder.subjectTextItemView.setText("Cliquer pour avoir les contenus de "+sCurrent);
-        holder.subjectImageItemView.setImageResource(R.drawable.edik_content);
+        holder.subjectTextItemView.setText(sCurrent);
+
+        holder.subjectImageItemView.setImageResource(getRessource(sCurrent.toUpperCase()));
+    }
+
+    private int getRessource(String name) {
+        switch (name) {
+            case "BIOLOGIE":
+                return R.drawable.research;
+            case "GEOLOGIE":
+                return R.drawable.drilling;
+            case "GEOGRAPHIE":
+                return R.drawable.world;
+            case "HISTOIRE UNIVERSELLE":
+                return R.drawable.history;
+            default:
+                return R.drawable.ic_baseline_menu_book_64;
+        }
+
     }
 
     @Override
@@ -54,7 +72,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.SubjectV
 
     public class SubjectViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public final TextView subjectTextItemView;
-        public final ImageButton subjectImageItemView;
+        public final ImageView subjectImageItemView;
         public final TextView subjectTextView;
         final SubjectAdapter subjectAdapter;
 
@@ -62,10 +80,11 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.SubjectV
             super(itemView);
             subjectTextItemView = (TextView) itemView.findViewById(R.id.subject_text_item);
             subjectTextView = (TextView) itemView.findViewById(R.id.subject_text);
-            subjectImageItemView = (ImageButton) itemView.findViewById(R.id.subject_img_item);
+            subjectImageItemView = (ImageView) itemView.findViewById(R.id.subject_img_item);
             this.subjectAdapter = subjectAdapter;
 
             subjectTextItemView.setOnClickListener(this);
+            itemView.setOnClickListener(this);
         }
 
         @Override
@@ -76,6 +95,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.SubjectV
             String partOne = text.getText().toString().substring(27);
             String partTwo = subjectTextView.getText().toString();
             intent.putExtra("subject", "/"+partOne+"/"+partTwo);
+            intent.putExtra("title", partTwo);
             v.getContext().startActivity(intent);
         }
     }

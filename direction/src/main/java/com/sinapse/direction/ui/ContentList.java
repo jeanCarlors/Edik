@@ -18,6 +18,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 import com.sinapse.direction.R;
+import com.sinapse.direction.databinding.ActivityContentListBinding;
 import com.sinapse.direction.ui.helper.SubjectAdapter;
 
 import java.io.IOException;
@@ -39,10 +40,14 @@ public class ContentList extends AppCompatActivity {
     private StorageReference rootContentSubject = storage.getReference().child("/Edik Content");
     private String rootUrl = "gs://edik-6adf5.appspot.com";
 
+    ActivityContentListBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_content_list);
+        binding = ActivityContentListBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot()); //R.layout.activity_content_list
+        setSupportActionBar(binding.toolbar);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Chargement de la page...");
@@ -55,6 +60,8 @@ public class ContentList extends AppCompatActivity {
         openContentSubject(bundle.getString("grade"), progressDialog);
         TextView subjectTextView = findViewById(R.id.header_subject_text_view);
         subjectTextView.setText("LES CONTENUS DE SINAPSE DU " + bundle.getString("grade").substring(1));
+
+        setTitle(bundle.getString("name"));
     }
 
     public void onMathBtnClicked(View view) {
@@ -62,7 +69,7 @@ public class ContentList extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openContentSubject(String grade, final ProgressDialog progressDialog){
+    public void openContentSubject(String grade, final ProgressDialog progressDialog) {
         rootContentSubject.child(grade).listAll()
                 .addOnSuccessListener(new OnSuccessListener<ListResult>() {
                     @Override
@@ -82,7 +89,7 @@ public class ContentList extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                      Log.d("Root content subject", "Connexion failed"); // Uh-oh, an error occurred!
+                        Log.d("Root content subject", "Connexion failed"); // Uh-oh, an error occurred!
                     }
                 });
     }

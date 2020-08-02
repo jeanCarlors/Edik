@@ -13,9 +13,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".ui.helper.ContentViewer" />
         <activity android:name=".ui.PresenceListByGrade" />
-        <activity android:name=".ui.ContentByChapter" />
+
+        <activity
+            android:name=".ui.ContentByChapter"
+            android:label="@string/title_activity_content_by_chapter"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".ui.LoginRecovery" />
         <activity android:name=".ui.DrawerHome" />
         <activity android:name=".ui.Login" />
@@ -24,11 +30,28 @@
         <activity android:name=".ui.TeacherList" />
         <activity android:name=".ui.StudentList" />
         <activity android:name=".ui.GradeDetails" />
-        <activity android:name=".ui.ContentDetails" />
-        <activity android:name=".ui.ContentList" />
+
+        <activity android:name=".ui.ContentDetails"
+            android:label="@string/title_activity_content_details"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".ui.ContentList"
+            android:label="@string/title_activity_content_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".ui.Home" />
         <activity android:name=".ui.TeacherContent" />
-        <activity android:name=".ui.EdikContentByClass" />
+
+        <activity
+            android:name=".ui.EdikContentByClass"
+            android:label="@string/title_activity_class"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.DrawerHome" />
+        </activity>
+
         <activity android:name=".ui.ClassroomCreationForm" />
         <activity android:name=".ui.Messages" />
         <activity android:name=".ui.SchoolActivityByDay" />
@@ -45,13 +68,13 @@
         <activity android:name=".ui.School" />
         <activity android:name=".ui.EdikContentByGrade" />
         <activity android:name=".ui.EdikContent" />
-        <activity android:name=".ui.MainActivity"
 
+        <activity
+            android:name=".ui.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

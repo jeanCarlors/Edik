@@ -19,9 +19,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="50dp"
-        android:paddingRight="50dp"
-        android:orientation="vertical">
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:layout_margin="20dp"
+        android:background="#fff">
 
         <EditText
             android:id="@+id/userEditText"
@@ -57,11 +60,11 @@
 
 
     <TextView
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="0dp"
         android:id="@+id/txtView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="50dp"
+        android:layout_marginLeft="30dp"
         android:textColor="#41A317"
         android:text="Mot de passe oublie ?"
         android:clickable="true"

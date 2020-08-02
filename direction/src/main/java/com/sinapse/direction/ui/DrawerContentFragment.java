@@ -57,7 +57,7 @@ public class DrawerContentFragment extends Fragment {
         progressDialog.setMessage("Si le chargement de page tarde, vérifier votre connexion d'internet.");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        openContentTopic("/Free Content/NS I", rootView);
+        openContentTopic("/Free Content", rootView);
 
         final Intent intent = new Intent(getActivity(), EdikContentByClass.class);
         final Button btn = rootView.findViewById(R.id.btn);
