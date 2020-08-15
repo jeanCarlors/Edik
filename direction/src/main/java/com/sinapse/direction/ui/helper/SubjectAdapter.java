@@ -26,10 +26,12 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.SubjectViewHolder>  {
     private List<String> subjectList = new ArrayList<>();
     private LayoutInflater subjectInflater;
+    private String path;
 
-    public SubjectAdapter(Context context, ArrayList<String> subjectList){
+    public SubjectAdapter(Context context, ArrayList<String> subjectList, String path){
         subjectInflater = LayoutInflater.from(context);
         this.subjectList = subjectList;
+        this.path = path;
     }
 
     @NonNull

@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,30 +32,68 @@ import java.util.List;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
-public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHolder> {
+public class TopicAdapter extends RecyclerView.Adapter<ContentTopicViewHolder> {
     private List<String> topicList = new ArrayList<>();
     private LayoutInflater topicInflater;
     private Context context;
+    private String path;
 
-    public TopicAdapter(Context context, ArrayList<String> topicList){
+    public TopicAdapter(Context context, ArrayList<String> topicList, String path){
         topicInflater = LayoutInflater.from(context);
         this.topicList = topicList;
         this.context = context;
+        this.path = path;
     }
 
     @NonNull
     @Override
-    public TopicAdapter.TopicViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View topicItemView = topicInflater.inflate(R.layout.topic_item_layout, parent, false);
-        return new TopicViewHolder(topicItemView, this);
+    public ContentTopicViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View topicItemView = topicInflater.inflate(R.layout.free_content_item_layout, parent, false);
+        return new ContentTopicViewHolder(topicItemView, path);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TopicAdapter.TopicViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ContentTopicViewHolder holder, int position) {
         String current = topicList.get(position);
-        holder.topicTextView.setText(current);
-        holder.topicTextItemView.setText("Cliquer pour avoir les contenus de "+ current);
-        holder.topicImageItemView.setImageResource(R.drawable.edik_content);
+        holder.freeContentTextView.setText(current);
+        holder.countDocument();
+
+
+        holder.buttonViewOption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                onClickMenu(view.getContext(), holder.buttonViewOption, holder);
+            }
+        });
+    }
+
+
+    public void onClickMenu(Context context, View view, final ContentTopicViewHolder holder) {
+
+        //creating a popup menu
+        PopupMenu popup = new PopupMenu(context, view);
+        //inflating menu from xml resource
+        popup.inflate(R.menu.content_recycler_view_menu);
+        //adding click listener
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.update:
+                        holder.delete();
+                        holder.download();
+                        break;
+                    case R.id.delete:
+                        holder.delete();
+                        break;
+                }
+                return false;
+            }
+        });
+        //displaying the popup
+        popup.show();
+
     }
 
     @Override

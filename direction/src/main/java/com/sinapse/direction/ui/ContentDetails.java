@@ -85,7 +85,7 @@ public class ContentDetails extends AppCompatActivity {
                         }
                         topicRecyclerView = findViewById(R.id.topic_recycler_view);
                         progressDialog.dismiss();
-                        topicAdapter = new TopicAdapter(getApplicationContext(), (ArrayList<String>) topicList);
+                        topicAdapter = new TopicAdapter(getApplicationContext(), (ArrayList<String>) topicList, topic);
                         topicRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                         //topicRecyclerView.setHasFixedSize(true);
                         topicRecyclerView.setAdapter(topicAdapter);
