@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +24,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 import com.sinapse.direction.R;
+import com.sinapse.direction.ui.Models.Topic;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,6 +34,7 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 
 public class ContentTopicViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
     TextView freeContentTextItemView;
     ImageView freeContentImageItemView;
     TextView freeContentTextView;
@@ -40,23 +44,17 @@ public class ContentTopicViewHolder extends RecyclerView.ViewHolder implements V
     TextView txtDownloadCount;
     ImageView imgDownloadStatut;
 
-    String path;
-
     Context context;
+    StorageReference topic;
 
     int countDownloaded = 0;
 
-    FirebaseStorage storage = FirebaseStorage.getInstance();
-    StorageReference storageRef = storage.getReference();
-    StorageReference rootContentTopic = storage.getReference().child("/Edik Content");
-
     File rootPath = Environment.getExternalStoragePublicDirectory(
             Environment.DIRECTORY_DOWNLOADS);
-    File contentDirectory = new File(rootPath + "/Content/.content");
+    File contentDirectory = new File(rootPath + "/Edik/.content");
 
-    public ContentTopicViewHolder(@NonNull View itemView, String path) {
+    public ContentTopicViewHolder(@NonNull View itemView) {
         super(itemView);
-        this.path = path;
         context = itemView.getContext();
         freeContentTextItemView = (TextView) itemView.findViewById(R.id.free_content_text_item);
         freeContentTextView = (TextView) itemView.findViewById(R.id.free_content_text);
@@ -68,10 +66,20 @@ public class ContentTopicViewHolder extends RecyclerView.ViewHolder implements V
         txtDownloadCount = (TextView) itemView.findViewById(R.id.free_content_download_count);
         imgDownloadStatut = (ImageView) itemView.findViewById(R.id.free_content_statut_img);
 
+        buttonViewOption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickMenu(buttonViewOption);
+            }
+        });
         freeContentTextItemView.setOnClickListener(this);
         itemView.setOnClickListener(this);
+    }
 
-        Log.e("PATH", path);
+    public void bind(StorageReference topic) {
+        this.topic = topic;
+        freeContentTextView.setText(this.topic.getName());
+        countDocument();
     }
 
 
@@ -80,20 +88,43 @@ public class ContentTopicViewHolder extends RecyclerView.ViewHolder implements V
         download();
     }
 
+
+    public void onClickMenu(View view) {
+
+        //creating a popup menu
+        PopupMenu popup = new PopupMenu(context, view);
+        //inflating menu from xml resource
+        popup.inflate(R.menu.content_recycler_view_menu);
+        //adding click listener
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.update:
+                        delete();
+                        download();
+                        break;
+                    case R.id.delete:
+                        delete();
+                        break;
+                }
+                return false;
+            }
+        });
+        //displaying the popup
+        popup.show();
+
+    }
+
     public void countDocument() {
         imgDownloadStatut.setVisibility(View.GONE);
         txtDownloadStatut.setVisibility(View.GONE);
         txtDownloadCount.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
 
-        final String topicPath = freeContentTextView.getText().toString();
+        final File topicDirectory = new File(contentDirectory + "/" + topic.getPath());
 
-        String[] topicPathBeginArray = topicPath.split("-");
-        final String topicPathBegin = topicPathBeginArray[0].replaceAll(" ", "/").replaceFirst("/", " ");
-        final File topicDirectory = new File(contentDirectory + "/" + topicPathBegin + topicPath);
-
-        final StorageReference topicReference = rootContentTopic.child(topicPath);
-        topicReference.listAll()
+        topic.listAll()
                 .addOnSuccessListener(new OnSuccessListener<ListResult>() {
                     @Override
                     public void onSuccess(ListResult listResult) {
@@ -130,23 +161,18 @@ public class ContentTopicViewHolder extends RecyclerView.ViewHolder implements V
 
         txtDownloadCount.setVisibility(totalCloud != totalLocal ? View.VISIBLE : View.GONE);
         txtDownloadCount.setText(String.format(Locale.US, "%d/%d", totalLocal, totalCloud));
-        Log.d("FREECONTENTADAPTER", String.format(Locale.US, "%s : %d/%d", freeContentTextView.getText().toString(), totalLocal, totalCloud));
+        Log.d("TOPICCONTENTADAPTER", String.format(Locale.US, "%s : %d/%d", freeContentTextView.getText().toString(), totalLocal, totalCloud));
     }
 
     public void delete() {
-        String[] topicPathBeginArray = freeContentTextView.getText().toString().split("-");
-        final String topicPathBegin = topicPathBeginArray[0].replaceAll(" ", "/").replaceFirst("/", " ");
-        Log.d("pathTopicBegin", topicPathBegin);
 
-        File rootPath = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DOWNLOADS);
-        File contentDirectory = new File(rootPath + "/Content/.content/free content/" + topicPathBegin + freeContentTextView.getText().toString());
-        if (contentDirectory.exists()) {
-            for (File child : contentDirectory.listFiles()) {
+        File topicPath = new File(contentDirectory + "/" + topic.getPath());
+        if (topicPath.exists()) {
+            for (File child : topicPath.listFiles()) {
                 child.delete();
             }
             Toast.makeText(context, "Document supprime", Toast.LENGTH_LONG).show();
-            contentDirectory.delete();
+            topicPath.delete();
         } else {
             Toast.makeText(context, "Ce document n'existe pas", Toast.LENGTH_LONG).show();
         }
@@ -157,29 +183,22 @@ public class ContentTopicViewHolder extends RecyclerView.ViewHolder implements V
     public void download() {
         progressBar.setVisibility(View.VISIBLE);
 
-        final String topicPath = freeContentTextView.getText().toString();
-        String[] topicPathBeginArray = topicPath.split("-");
-        final String topicPathBegin = topicPathBeginArray[0].replaceAll(" ", "/").replaceFirst("/", " ");
-        Log.d("pathTopicBegin", topicPathBegin);
-        Log.d("pathTopic", topicPathBegin + topicPath);
-
-        final StorageReference topicReference = rootContentTopic.child(topicPath);
 
         contentDirectory.mkdirs();
-        final File topicDirectory = new File(contentDirectory + "/" + topicPathBegin + topicPath);
+        final File topicDirectory = new File(contentDirectory + "/" + topic.getPath());
         topicDirectory.mkdirs();
 
         final Intent successIntent = new Intent(context, ContentViewer.class);
         successIntent.setFlags(FLAG_ACTIVITY_NEW_TASK);
 
-        topicReference.listAll()
+        topic.listAll()
                 .addOnSuccessListener(new OnSuccessListener<ListResult>() {
                     @Override
                     public void onSuccess(ListResult listResult) {
                         int size = listResult.getItems().size();
                         //Log.d("free content",topicReference.getPath());
                         Log.d("free content", topicDirectory.getPath());
-                        successIntent.putExtra("path", "/free content/" + topicPathBegin + topicPath + "/index.html");
+                        successIntent.putExtra("path", topicDirectory.getPath() + "/index.html");
 
                         int localCount = 0;
                         countDownloaded = 0;

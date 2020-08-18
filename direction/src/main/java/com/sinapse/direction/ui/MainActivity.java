@@ -18,6 +18,7 @@ import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 import com.sinapse.direction.R;
 import com.sinapse.direction.databinding.ActivityMainBinding;
+import com.sinapse.direction.ui.helper.ContentTopicAdapter;
 import com.sinapse.direction.ui.helper.FreeContentAdapter;
 import com.sinapse.direction.ui.helper.TopicAdapter;
 
@@ -27,7 +28,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView freeContentRecyclerView;
-    private FreeContentAdapter freeContentAdapter;
+    private ContentTopicAdapter freeContentAdapter;
     private List<String> freeContentList = new ArrayList<>();
     private ProgressDialog progressDialog;
 
@@ -64,11 +65,8 @@ public class MainActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<ListResult>() {
                     @Override
                     public void onSuccess(ListResult listResult) {
-                        for (StorageReference item : listResult.getPrefixes()) {
-                            freeContentList.add(item.getName());
-                        }
                         freeContentRecyclerView = findViewById(R.id.free_content_recycler_view);
-                        freeContentAdapter = new FreeContentAdapter(getApplicationContext(), (ArrayList<String>) freeContentList);
+                        freeContentAdapter = new ContentTopicAdapter(getApplicationContext(), listResult.getPrefixes());
                         freeContentRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                         progressDialog.dismiss();
                         freeContentRecyclerView.setAdapter(freeContentAdapter);

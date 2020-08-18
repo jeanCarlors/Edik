@@ -22,6 +22,8 @@ import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 import com.sinapse.direction.R;
 import com.sinapse.direction.databinding.ActivityContentDetailsBinding;
+import com.sinapse.direction.ui.Models.Topic;
+import com.sinapse.direction.ui.helper.ContentTopicAdapter;
 import com.sinapse.direction.ui.helper.ContentViewer;
 import com.sinapse.direction.ui.helper.TopicAdapter;
 
@@ -32,8 +34,8 @@ import java.util.List;
 
 public class ContentDetails extends AppCompatActivity {
     private RecyclerView topicRecyclerView;
-    private TopicAdapter topicAdapter;
-    private List<String> topicList = new ArrayList<>();
+    private ContentTopicAdapter topicAdapter;
+    private List<Topic> topicList = new ArrayList<>();
 
     private ProgressDialog progressDialog;
 
@@ -67,7 +69,7 @@ public class ContentDetails extends AppCompatActivity {
         String root = "/";
         String pathTopic = "/" + (bundle.getString("chapter").replaceFirst("-", "/"));
         Log.d("test4",pathTopic);
-        topicTextView.setText("LES CONTENUS DE SINAPSE DU " + bundle.getString("chapter"));
+        topicTextView.setText(pathTopic.substring(1).replaceAll("/", " / "));
 
         setTitle(bundle.getString("title"));
 
@@ -79,18 +81,12 @@ public class ContentDetails extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<ListResult>() {
                     @Override
                     public void onSuccess(ListResult listResult) {
-                        Log.d("topic", String.valueOf(listResult.getPrefixes().size()));
-                        for (StorageReference item : listResult.getPrefixes()) {
-                            topicList.add(item.getName());
-                        }
                         topicRecyclerView = findViewById(R.id.topic_recycler_view);
                         progressDialog.dismiss();
-                        topicAdapter = new TopicAdapter(getApplicationContext(), (ArrayList<String>) topicList, topic);
+                        topicAdapter = new ContentTopicAdapter(getApplicationContext(), listResult.getPrefixes());
                         topicRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                         //topicRecyclerView.setHasFixedSize(true);
                         topicRecyclerView.setAdapter(topicAdapter);
-
-
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

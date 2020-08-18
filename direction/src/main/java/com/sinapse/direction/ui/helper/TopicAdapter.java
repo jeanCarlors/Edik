@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,68 +30,30 @@ import java.util.List;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
-public class TopicAdapter extends RecyclerView.Adapter<ContentTopicViewHolder> {
+public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHolder> {
     private List<String> topicList = new ArrayList<>();
     private LayoutInflater topicInflater;
     private Context context;
-    private String path;
 
-    public TopicAdapter(Context context, ArrayList<String> topicList, String path){
+    public TopicAdapter(Context context, ArrayList<String> topicList){
         topicInflater = LayoutInflater.from(context);
         this.topicList = topicList;
         this.context = context;
-        this.path = path;
     }
 
     @NonNull
     @Override
-    public ContentTopicViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View topicItemView = topicInflater.inflate(R.layout.free_content_item_layout, parent, false);
-        return new ContentTopicViewHolder(topicItemView, path);
+    public TopicAdapter.TopicViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View topicItemView = topicInflater.inflate(R.layout.topic_item_layout, parent, false);
+        return new TopicViewHolder(topicItemView, this);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ContentTopicViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TopicAdapter.TopicViewHolder holder, int position) {
         String current = topicList.get(position);
-        holder.freeContentTextView.setText(current);
-        holder.countDocument();
-
-
-        holder.buttonViewOption.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                onClickMenu(view.getContext(), holder.buttonViewOption, holder);
-            }
-        });
-    }
-
-
-    public void onClickMenu(Context context, View view, final ContentTopicViewHolder holder) {
-
-        //creating a popup menu
-        PopupMenu popup = new PopupMenu(context, view);
-        //inflating menu from xml resource
-        popup.inflate(R.menu.content_recycler_view_menu);
-        //adding click listener
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.update:
-                        holder.delete();
-                        holder.download();
-                        break;
-                    case R.id.delete:
-                        holder.delete();
-                        break;
-                }
-                return false;
-            }
-        });
-        //displaying the popup
-        popup.show();
-
+        holder.topicTextView.setText(current);
+        holder.topicTextItemView.setText("Cliquer pour avoir les contenus de "+ current);
+        holder.topicImageItemView.setImageResource(R.drawable.edik_content);
     }
 
     @Override
@@ -156,16 +116,16 @@ public class TopicAdapter extends RecyclerView.Adapter<ContentTopicViewHolder> {
                             int itemsNumber = 0;
                             for (StorageReference item : listResult.getItems()) {
                                 itemsNumber++;
-                            File file = new File(topicDirectory +"/"+ item.getName());
+                                File file = new File(topicDirectory +"/"+ item.getName());
                                 Log.d("inTopic", file.getName());
-                            if(file.exists() && file.length() != 0L){
-                                if(itemsNumber == size){
-                                    progressBar.setVisibility(View.INVISIBLE);
-                                   v.getContext().startActivity(successIntent);
+                                if(file.exists() && file.length() != 0L){
+                                    if(itemsNumber == size){
+                                        progressBar.setVisibility(View.INVISIBLE);
+                                        v.getContext().startActivity(successIntent);
+                                    }else{
+                                        continue;
+                                    }
                                 }else{
-                                   continue;
-                                }
-                            }else{
                                     try {
                                         file.createNewFile();
                                         downloadContents(item, file, size, itemsNumber, successIntent, v, progressBar);
@@ -173,7 +133,7 @@ public class TopicAdapter extends RecyclerView.Adapter<ContentTopicViewHolder> {
                                         e.printStackTrace();
                                     }
                                 }
-                           }
+                            }
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -202,16 +162,16 @@ public class TopicAdapter extends RecyclerView.Adapter<ContentTopicViewHolder> {
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                     Toast.makeText(itemView.getContext(), "Downloading...", Toast.LENGTH_LONG).show();
                     if( itemsNumber == resultItemsSize){
-                      Toast.makeText(itemView.getContext(), "Download complete", Toast.LENGTH_LONG).show();
-                      progressBar.setVisibility(View.INVISIBLE);
-                      view.getContext().startActivity(intent);
-                        }
+                        Toast.makeText(itemView.getContext(), "Download complete", Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.INVISIBLE);
+                        view.getContext().startActivity(intent);
+                    }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
                     exception.printStackTrace();
-                   // startActivity(failureIntent);
+                    // startActivity(failureIntent);
                 }
             });
 

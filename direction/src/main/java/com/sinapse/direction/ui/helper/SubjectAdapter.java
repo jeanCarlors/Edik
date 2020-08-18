@@ -97,7 +97,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.SubjectV
             String partOne = text.getText().toString().substring(27);
             String partTwo = subjectTextView.getText().toString();
             intent.putExtra("subject", "/"+partOne+"/"+partTwo);
-            intent.putExtra("title", partTwo);
+            intent.putExtra("title", partOne+": "+partTwo);
             v.getContext().startActivity(intent);
         }
     }
