@@ -110,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 //startActivity(SignedInActivity.createIntent(this, response));
                 goToHome();
-                finish();
             } else {
                 // Sign in failed
                 if (response == null) {
