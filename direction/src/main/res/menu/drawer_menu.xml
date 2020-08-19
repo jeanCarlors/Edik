@@ -29,4 +29,12 @@
             android:title="Messagerie" />
     </group>
 
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/drawer_logout"
+            android:icon="@drawable/ic_baseline_exit_to_app_24"
+            android:title="Déconnexion" />
+    </group>
+
 </menu>
