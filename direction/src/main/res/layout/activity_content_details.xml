@@ -28,20 +28,15 @@
         tools:context=".ui.ContentList">
 
         <TextView
-            android:visibility="gone"
+            android:visibility="visible"
             android:id="@+id/header_topic_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="LES CONTENUS DE SINAPSE DU NS I - MATHS"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
+            android:textColor="#000"
+            android:textStyle="bold"
             android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:textColor="#ffffff"/>
+            android:layout_marginLeft="10dp"/>
 
 
         <androidx.recyclerview.widget.RecyclerView

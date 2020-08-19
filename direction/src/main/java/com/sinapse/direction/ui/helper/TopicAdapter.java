@@ -116,16 +116,16 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
                             int itemsNumber = 0;
                             for (StorageReference item : listResult.getItems()) {
                                 itemsNumber++;
-                            File file = new File(topicDirectory +"/"+ item.getName());
+                                File file = new File(topicDirectory +"/"+ item.getName());
                                 Log.d("inTopic", file.getName());
-                            if(file.exists() && file.length() != 0L){
-                                if(itemsNumber == size){
-                                    progressBar.setVisibility(View.INVISIBLE);
-                                   v.getContext().startActivity(successIntent);
+                                if(file.exists() && file.length() != 0L){
+                                    if(itemsNumber == size){
+                                        progressBar.setVisibility(View.INVISIBLE);
+                                        v.getContext().startActivity(successIntent);
+                                    }else{
+                                        continue;
+                                    }
                                 }else{
-                                   continue;
-                                }
-                            }else{
                                     try {
                                         file.createNewFile();
                                         downloadContents(item, file, size, itemsNumber, successIntent, v, progressBar);
@@ -133,7 +133,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
                                         e.printStackTrace();
                                     }
                                 }
-                           }
+                            }
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -162,16 +162,16 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                     Toast.makeText(itemView.getContext(), "Downloading...", Toast.LENGTH_LONG).show();
                     if( itemsNumber == resultItemsSize){
-                      Toast.makeText(itemView.getContext(), "Download complete", Toast.LENGTH_LONG).show();
-                      progressBar.setVisibility(View.INVISIBLE);
-                      view.getContext().startActivity(intent);
-                        }
+                        Toast.makeText(itemView.getContext(), "Download complete", Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.INVISIBLE);
+                        view.getContext().startActivity(intent);
+                    }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
                     exception.printStackTrace();
-                   // startActivity(failureIntent);
+                    // startActivity(failureIntent);
                 }
             });
 

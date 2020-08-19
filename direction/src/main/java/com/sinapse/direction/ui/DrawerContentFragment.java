@@ -21,6 +21,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 import com.sinapse.direction.R;
+import com.sinapse.direction.ui.helper.ContentTopicAdapter;
 import com.sinapse.direction.ui.helper.FreeContentAdapter;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ import java.util.List;
 public class DrawerContentFragment extends Fragment {
     private Button btn;
     private RecyclerView freeContentRecyclerView;
-    private FreeContentAdapter freeContentAdapter;
+    private ContentTopicAdapter freeContentAdapter;
     private List<String> freeContentList = new ArrayList<>();
     private ProgressDialog progressDialog;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -76,11 +77,8 @@ public class DrawerContentFragment extends Fragment {
                 .addOnSuccessListener(new OnSuccessListener<ListResult>() {
                     @Override
                     public void onSuccess(ListResult listResult) {
-                        for (StorageReference item : listResult.getPrefixes()) {
-                            freeContentList.add(item.getName());
-                        }
                         freeContentRecyclerView = view.findViewById(R.id.free_content_recycler_view);
-                        freeContentAdapter = new FreeContentAdapter(getContext(), (ArrayList<String>) freeContentList);
+                        freeContentAdapter = new ContentTopicAdapter(getContext(), listResult.getPrefixes());
                         freeContentRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                         progressDialog.dismiss();
                         freeContentRecyclerView.setAdapter(freeContentAdapter);

@@ -19,6 +19,6 @@ public class ContentViewer extends AppCompatActivity {
         //webView.getSettings().setAllowContentAccess(true);
         //webView.getSettings().setDomStorageEnabled(true);
         //webView.getSettings().setDisplayZoomControls(false);
-        webView.loadUrl("file:///storage/emulated/0/Download/Content/.content"+ getIntent().getExtras().getString("path"));
+        webView.loadUrl("file://" + getIntent().getExtras().getString("path"));
     }
 }

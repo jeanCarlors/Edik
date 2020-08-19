@@ -69,7 +69,7 @@ public class ContentList extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openContentSubject(String grade, final ProgressDialog progressDialog) {
+    public void openContentSubject(final String grade, final ProgressDialog progressDialog) {
         rootContentSubject.child(grade).listAll()
                 .addOnSuccessListener(new OnSuccessListener<ListResult>() {
                     @Override
@@ -80,7 +80,7 @@ public class ContentList extends AppCompatActivity {
                         }
                         subjectRecyclerView = findViewById(R.id.subject_recycler_view);
                         progressDialog.dismiss();
-                        subjectAdapter = new SubjectAdapter(getApplicationContext(), (ArrayList<String>) subjectList);
+                        subjectAdapter = new SubjectAdapter(getApplicationContext(), (ArrayList<String>) subjectList, grade);
                         subjectRecyclerView.setAdapter(subjectAdapter);
                         subjectRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
