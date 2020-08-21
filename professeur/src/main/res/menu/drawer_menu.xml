@@ -13,10 +13,11 @@
             android:title="Classes" />
         <item
             android:id="@+id/drawer_student"
-            android:icon="@drawable/icons8_teacher_80"
-            android:title="Elèves" />
+            android:icon="@drawable/user"
+            android:title="Profil" />
         <item
             android:id="@+id/drawer_schedule"
+            android:visible="false"
             android:icon="@drawable/icons8_schedule_100"
             android:title="Calendrier" />
         <item

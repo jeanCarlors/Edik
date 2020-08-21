@@ -11,7 +11,7 @@ import android.widget.EditText;
 import com.sinapse.eleve.R;
 
 public class Login extends AppCompatActivity {
-    EditText userEditText;
+    EditText usernameEditText;
     EditText passwordEditText;
     EditText gradeEditText;
     @Override
@@ -22,9 +22,12 @@ public class Login extends AppCompatActivity {
 
     public void onLoginBtnClicked(View view) {
         gradeEditText = findViewById(R.id.gradeEditText);
+        usernameEditText = findViewById(R.id.username_edit_text);
         String grade = gradeEditText.getText().toString();
+        String username = usernameEditText.getText().toString();
         Intent intent = new Intent(this, DrawerHome.class);
         intent.putExtra("grade", "/" + grade);
+        intent.putExtra("username", username);
         startActivity(intent);
     }
 

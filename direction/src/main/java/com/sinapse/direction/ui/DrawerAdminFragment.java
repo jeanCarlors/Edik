@@ -90,16 +90,16 @@ public class DrawerAdminFragment extends Fragment {
                     public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                         switch(position) {
                             case 0:
-                                tab.setText("Presence");
+                                tab.setText("Profil");
                                 break;
                             case 1:
-                                tab.setText("Note");
+                                tab.setText("Creation de classes");
                                 break;
                             case 2:
-                                tab.setText("Suspension");
-                                break;
+                                tab.setText("Validation des classes");
+                               break;
                             default:
-                                tab.setText("Presence");
+                                tab.setText("Profil");
                         }
                     }
                 }

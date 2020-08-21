@@ -24,7 +24,7 @@
         <activity android:name=".ui.Messages" />
         <activity android:name=".ui.ActivityByClassroomByDay" />
         <activity android:name=".ui.Assignment" />
-        <activity android:name=".ui.CourseUnfolding" />
+        <activity android:name=".ui.CourseProcessing" />
         <activity android:name=".ui.CourseLauncher" />
         <activity android:name=".ui.TeacherContentByClassroom" />
         <activity android:name=".ui.Classrooms" />

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.CoursesByClassroomFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp">
+        <Button
+            android:id="@+id/course_launcher"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:text="Commencer un cours"
+            android:textSize="15dp"
+            android:textColor="#ffffff"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:background="@color/colorPrimary"
+            android:layout_marginBottom="10dp"
+            android:textStyle="bold"/>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_below="@+id/course_launcher"
+            android:background="?android:attr/listDivider"/>
+
+        <TextView
+            android:id="@+id/tv_cours"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:text="Mes cours"
+            android:textSize="15dp"
+            android:textColor="#ffffff"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:background="@color/colorPrimary"
+            android:layout_marginBottom="10dp"
+            android:textStyle="bold"
+            android:layout_below="@+id/divider"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/course_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tv_cours"/>
+    </RelativeLayout>
+</FrameLayout>

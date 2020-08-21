@@ -12,11 +12,16 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private DrawerLayout mDrawer;
     private NavigationView nvDrawer;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     //private DrawerToggle drawerToggle;
 
     @Override
@@ -35,6 +40,16 @@ public class MainActivity extends AppCompatActivity {
 
         nvDrawer = (NavigationView) findViewById(R.id.nv_view);
         setupDrawerContent(nvDrawer);
+        Map<String, Object> descritif = new HashMap<>();
+        descritif.put("descritif", "College Mixte");
+        //profil.put("adresse", "Petionville");
+        //profil.put("telephone", 12341815);
+
+        db.collection("00000001").document("ac_2019_2020").collection("Professeurs")
+                .document("pr_001").set(descritif);
+
+        //db.collection("/00000004").document("profil").set(profil);
+
     }
 
     @Override

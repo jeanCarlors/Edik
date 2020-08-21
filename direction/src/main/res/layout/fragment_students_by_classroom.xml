@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.StudentsByClassroomFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <Button
+        android:id="@+id/student_item"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textColor="#ffffff"
+        android:background="@color/colorPrimary"
+        android:text="La liste des eleves de la classe"
+        android:textAllCaps="true"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/student_list_by_classroom_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/student_item"/>
+    </RelativeLayout>
+
+</FrameLayout>

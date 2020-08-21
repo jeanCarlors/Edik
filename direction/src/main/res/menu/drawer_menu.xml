@@ -17,10 +17,12 @@
             android:title="Classes" />
         <item
             android:id="@+id/drawer_teacher"
+            android:visible="false"
             android:icon="@drawable/icons8_teacher_80"
             android:title="Professeurs" />
         <item
             android:id="@+id/drawer_schedule"
+            android:visible="false"
             android:icon="@drawable/icons8_schedule_100"
             android:title="Calendrier" />
         <item

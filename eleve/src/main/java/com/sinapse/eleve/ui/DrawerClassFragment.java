@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.sinapse.eleve.R;
-import com.sinapse.eleve.ui.helper.ClassPagerAdapter;
+import com.sinapse.eleve.ui.helper.ClassroomPagerAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,7 +30,7 @@ public class DrawerClassFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private TabLayout tabLayout;
-    private ClassPagerAdapter classPagerAdapter;
+    private ClassroomPagerAdapter classroomPagerAdapter;
     private ViewPager2 viewPager;
 
 
@@ -75,9 +75,9 @@ public class DrawerClassFragment extends Fragment {
         tabLayout.addTab(tabLayout.newTab().setText("Suspension"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        classPagerAdapter = new ClassPagerAdapter(this);
-        viewPager = view.findViewById(R.id.drawer_class_pager);
-        viewPager.setAdapter(classPagerAdapter);
+        //classroomPagerAdapter = new ClassroomPagerAdapter(this);
+        //viewPager = view.findViewById(R.id.drawer_class_pager);
+        //viewPager.setAdapter(classroomPagerAdapter);
 
         new TabLayoutMediator(tabLayout, viewPager,
                 new TabLayoutMediator.TabConfigurationStrategy() {
@@ -85,22 +85,19 @@ public class DrawerClassFragment extends Fragment {
                     public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                         switch(position) {
                             case 0:
-                                tab.setText("Elèves");
-                                break;
-                            case 1:
-                                tab.setText("Professeurs");
-                                break;
-                            case 2:
                                 tab.setText("Cours");
                                 break;
+                            case 1:
+                                tab.setText("Devoirs");
+                                break;
+                            case 2:
+                                tab.setText("Controles");
+                                break;
                             case 3:
-                                tab.setText("Activités");
+                                tab.setText("Notes");
                                 break;
                             case 4:
-                                tab.setText("Examens");
-                                break;
-                            case 5:
-                                tab.setText("Notes");
+                                tab.setText("Professeurs");
                                 break;
                             default:
                                 tab.setText("Elèves");

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.ProfileManagementFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:text="METTRE A JOUR MON PROFIL" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:textColor="#ffffff"
+                android:text="Nom complet:" />
+
+            <EditText
+                android:id="@+id/edit_text_teacher_name"
+                android:layout_width="400dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:hint="Rentrez votre nom"
+                android:inputType="text"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:textColor="#ffffff"
+                android:text="Adresse :" />
+
+            <EditText
+                android:id="@+id/edit_text_teacher_address"
+                android:layout_width="400dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:hint="Rentrez votre adresse"
+                android:inputType="text"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:textColor="#ffffff"
+                android:text="Téléphone :" />
+
+            <EditText
+                android:id="@+id/edit_text_teacher_telephone"
+                android:layout_width="400dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:hint="Rentrez votre téléphone"
+                android:inputType="phone"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:textColor="#ffffff"
+                android:text="METTRE A JOUR MON HORAIRE" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="5dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="1dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimary"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:textColor="#ffffff"
+                        android:text="Classe" />
+                    <Spinner
+                        android:id="@+id/sipnner_classroom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="5dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimary"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:textColor="#ffffff"
+                        android:text="Matière" />
+                    <EditText
+                        android:id="@+id/edit_text_teacher_subject"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:hint="Ex: Algèbre"
+                        android:inputType="text"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimary"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:textColor="#ffffff"
+                        android:text="Horaire" />
+                    <EditText
+                        android:id="@+id/edit_text_teacher_schedule"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:hint="Ex: Mardi 11h - 13h"
+                        android:inputType="text"/>
+                </LinearLayout>
+
+            </LinearLayout>
+            <Button
+                android:id="@+id/profile_btn"
+                android:layout_width="150dp"
+                android:layout_height="35dp"
+                android:text="METTRE A JOUR"
+                android:layout_gravity="right"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                android:background="@color/colorPrimary"
+                android:textColor="#ffffff"/>
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

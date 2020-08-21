@@ -48,7 +48,7 @@ public class DrawerContentFragment extends Fragment {
     private ProgressDialog progressDialog;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private StorageReference storageRef = storage.getReference();
-    StorageReference rootContentTopic = storage.getReference().child("/Edik Content");
+    private StorageReference rootContentTopic = storage.getReference().child("/Edik Content");
     private String rootUrl = "gs://edik-6adf5.appspot.com";
 
     public DrawerContentFragment() {
@@ -96,6 +96,7 @@ public class DrawerContentFragment extends Fragment {
         openContentTopic("/Free Content", rootView);
 
         final Intent intent = new Intent(getActivity(), ContentList.class);
+        intent.putExtra("grade", getActivity().getIntent().getExtras().getString("grade"));
         final Button btn = rootView.findViewById(R.id.btn);
 
         btn.setOnClickListener(new View.OnClickListener() {

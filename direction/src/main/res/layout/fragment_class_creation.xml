@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.ClassCreationFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:text="Ajouter une nouvelle Salle de classe" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="1dp"
+                android:orientation="vertical"
+                android:layout_weight="0.5">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center"
+                    android:textColor="#ffffff"
+                    android:text="Niveau de classe" />
+                <EditText
+                    android:id="@+id/edit_text_school_grade"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:hint="Exemple: NS I"
+                    android:inputType="text"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
+                android:orientation="vertical"
+                android:layout_weight="0.5">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center"
+                    android:textColor="#ffffff"
+                    android:text="Nom de classe" />
+                <EditText
+                    android:id="@+id/edit_text_school_grade_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:hint="Exemple: A, B ou 1, 2"
+                    android:inputType="text"/>
+            </LinearLayout>
+
+        </LinearLayout>
+        <Button
+            android:id="@+id/grade_adding_btn"
+            android:layout_width="150dp"
+            android:layout_height="35dp"
+            android:text="AJOUTER LA CLASSE"
+            android:layout_gravity="right"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            android:background="@color/colorPrimary"
+            android:textColor="#ffffff"/>
+
+        <View
+            android:id="@+id/divider4"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/colorPrimary"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:text="Classes creees" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/grade_created_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+</FrameLayout>

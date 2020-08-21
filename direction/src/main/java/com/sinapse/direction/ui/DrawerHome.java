@@ -104,7 +104,8 @@ public class DrawerHome extends AppCompatActivity {
                 fragmentClass = DrawerAdminFragment.class;
                 break;
             case R.id.drawer_classroom:
-                fragmentClass = DrawerClassFragment.class;
+                fragmentClass = ClassroomChoiceFragment.class;
+                //fragmentClass = DrawerClassFragment.class;
                 break;
             case R.id.drawer_teacher:
                 fragmentClass = DrawerTeacherFragment.class;

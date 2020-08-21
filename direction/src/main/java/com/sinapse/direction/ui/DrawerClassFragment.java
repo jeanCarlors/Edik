@@ -3,9 +3,11 @@ package com.sinapse.direction.ui;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,6 +73,10 @@ public class DrawerClassFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_drawer_class, container, false);
+
+        //ClassroomChoiceFragment newFragment = new ClassroomChoiceFragment();
+        //newFragment.show(getActivity().getSupportFragmentManager(), "missiles");
+        //Log.d("Classroom", newFragment.getClassroom());
 
         tabLayout = view.findViewById(R.id.drawer_class_tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Présence"));

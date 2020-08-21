@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.ProfileManagementFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:text="METTRE A JOUR LE PROFIL DE L'ETABLISSEMENT" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:text="Nom de l'école :" />
+
+        <EditText
+            android:id="@+id/edit_text_school_name"
+            android:layout_width="400dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:hint="Rentrez le nom de l'école"
+            android:inputType="text"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:text="Adresse :" />
+
+        <EditText
+            android:id="@+id/edit_text_school_address"
+            android:layout_width="400dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:hint="Rentrez l'adresse de l'école"
+            android:inputType="text"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:text="Téléphone :" />
+
+        <EditText
+            android:id="@+id/edit_text_school_telephone"
+            android:layout_width="400dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:hint="Rentrez le téléphone de l'école"
+            android:inputType="phone"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/school_profile_btn"
+        android:layout_width="150dp"
+        android:layout_height="35dp"
+        android:text="METTRE A JOUR"
+        android:layout_gravity="right"
+        android:layout_marginRight="10dp"
+        android:padding="5dp"
+        android:background="@color/colorPrimary"
+        android:textColor="#ffffff"/>
+
+    <View
+        android:id="@+id/divider4"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:background="?android:attr/listDivider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+            android:id="@+id/tv_school_name"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:textAllCaps="true"
+            android:background="@color/colorPrimary"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:text="Nom de l'école :" />
+
+        <TextView
+            android:id="@+id/tv_school_address"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:textAllCaps="true"
+            android:background="@color/colorPrimary"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:text="Adresse :" />
+
+        <TextView
+            android:id="@+id/tv_school_phone"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:textAllCaps="true"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:text="Téléphone :" />
+
+    </LinearLayout>
+ </LinearLayout>
+</FrameLayout>
