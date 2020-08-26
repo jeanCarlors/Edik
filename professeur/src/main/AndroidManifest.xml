@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.helper.ContentViewer"></activity>
+        <activity android:name=".ui.helper.CourseContentViewer"></activity>
+        <activity android:name=".ui.helper.ContentViewer" />
         <activity android:name=".ui.ContentByChapter" />
         <activity android:name=".ui.ContentList" />
         <activity android:name=".ui.LoginRecovery" />

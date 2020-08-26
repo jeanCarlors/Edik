@@ -183,23 +183,29 @@ public class CourseProcessing extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PICKFILE_REQUEST_CODE && resultCode == RESULT_OK){
+            date = new Date();
             final String courseHeader = getIntent().getExtras().getString("courseHeader");
             Uri content_describer = data.getData();
-            final StorageReference riversRef = storageRef.child("courses/test");
+            String mimeType = getContentResolver().getType(content_describer);
+            String path = "School Management/00000001/ac_2019_2020/Classes/NS I A/Courses/"
+                    +courseHeader+"/Muiltimedia - "+date.toString()+"/"
+                    +mimeType.split("/")[0]+"."+mimeType.split("/")[1];
+            final StorageReference riversRef = storageRef.child(path);
             UploadTask uploadTask = riversRef.putFile(content_describer);
-            Toast.makeText(this, content_describer.getLastPathSegment(), Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "################# "+mimeType, Toast.LENGTH_LONG).show();
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     echanges = new HashMap<>();
                     date = new Date();
                     echanges.put(date.toString() + "%" + "Professeur"
-                            , riversRef.getDownloadUrl().toString());
+                            , riversRef.getPath());
+                    //riversRef.getDownloadUrl().getResult().toString();
                     db.collection("00000001").document("ac_2019_2020")
                             .collection("Classes").document("NS I A")
                             .collection("Courses").document(courseHeader)
                             .update(echanges);
-                    //Log.d("ENFIN", "Enfin- " + riversRef.getDownloadUrl().toString());
+                    Log.d("ENFIN", "Enfin - " + taskSnapshot.getStorage().toString());
                 }
             });
 
