@@ -109,7 +109,8 @@ public class ProfileManagementFragment extends Fragment {
         final TextView prenom = rootView.findViewById(R.id.tv_prenom);
         //final TextView adresse = rootView.findViewById(R.id.tv_adresse);
         final TextView telephone = rootView.findViewById(R.id.tv_telephone);
-        final TextView responsable = rootView.findViewById(R.id.tv_responsable);
+        final TextView responsableName = rootView.findViewById(R.id.tv_responsable_name);
+        final TextView responsableTel = rootView.findViewById(R.id.tv_responsable_tel);
         db.collection("00000001").document("ac_2019_2020").collection("Classes")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -154,7 +155,8 @@ public class ProfileManagementFragment extends Fragment {
                     prenom.setText(prenom.getText() +" " + documentSnapshot.getData().get("prenom").toString());
                     //adresse.setText(document.getData().get("adresse").toString());
                     telephone.setText(telephone.getText() +" " + documentSnapshot.getData().get("telephone").toString());
-                    responsable.setText(responsable.getText() +" " + documentSnapshot.getData().get("responsable").toString());
+                    responsableName.setText(responsableName.getText() +" " + documentSnapshot.getData().get("responsable").toString());
+                    responsableTel.setText(responsableTel.getText() +" " + documentSnapshot.getData().get("telephone responsable").toString());
                 }
             }
         });
@@ -179,7 +181,8 @@ public class ProfileManagementFragment extends Fragment {
         EditText edt_name = (EditText) view.getRootView().findViewById(R.id.edit_text_student_name);
         EditText edt_firstname = (EditText) view.getRootView().findViewById(R.id.edit_text_student_firstname);
         EditText edt_telephone = (EditText) view.getRootView().findViewById(R.id.edit_text_student_telephone);
-        EditText edt_responsable = (EditText) view.getRootView().findViewById(R.id.edit_text_responsable_name);
+        EditText edt_responsable_name = (EditText) view.getRootView().findViewById(R.id.edit_text_responsable_name);
+        EditText edt_responsable_tel = (EditText) view.getRootView().findViewById(R.id.edit_text_responsable_telephone);
         final DocumentReference studentDocumentReferenceForRemoving = db.collection("00000001")
                 .document("ac_2019_2020").collection("Eleves")
                 .document(username);
@@ -194,8 +197,10 @@ public class ProfileManagementFragment extends Fragment {
         if (edt_telephone.getText().toString().length() > 0)
             profil.put("telephone", edt_telephone.getText().toString());
 
-        if (edt_responsable.getText().toString().length() > 0)
-            profil.put("responsable", edt_responsable.getText().toString());
+        if (edt_responsable_name.getText().toString().length() > 0)
+            profil.put("responsable", edt_responsable_name.getText().toString());
+        if (edt_responsable_tel.getText().toString().length() > 0)
+            profil.put("telephone responsable", edt_responsable_tel.getText().toString());
 
         if (gradeSpinner.getSelectedItem().toString().length() > 0) {
             DocumentReference classeDocumentreference = db.collection("00000001")
@@ -205,7 +210,8 @@ public class ProfileManagementFragment extends Fragment {
         }
 
         if (edt_name.getText().toString().length() > 0 || edt_firstname.getText().toString().length() > 0
-                || edt_telephone.getText().toString().length() > 0 || edt_responsable.getText().toString().length() > 0){
+                || edt_telephone.getText().toString().length() > 0 || edt_responsable_name.getText().toString().length() > 0
+                || edt_responsable_tel.getText().toString().length() > 0){
             db.collection("00000001").document("ac_2019_2020")
                     .collection("Eleves")
                     .document(username).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -253,11 +259,13 @@ public class ProfileManagementFragment extends Fragment {
             edt_name.setText("");
             edt_firstname.setText("");
             edt_telephone.setText("");
-            edt_responsable.setText("");
+            edt_responsable_name.setText("");
+            edt_responsable_tel.setText("");
             edt_name.setHint("Rentrez votre nom ");
             edt_firstname.setHint("Rentrez votre prenom ");
             edt_telephone.setHint("Rentrez votre téléphone ");
-            edt_responsable.setHint("Le nom de votre responsable");
+            edt_responsable_name.setHint("Le nom de votre responsable");
+            edt_responsable_tel.setHint("Téléphone responsable");
         }
 
         DocumentReference studentDocumentReference = db.collection("00000001")

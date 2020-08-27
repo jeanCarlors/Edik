@@ -1,16 +1,32 @@
 package com.sinapse.eleve.ui;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.sinapse.eleve.R;
+import com.sinapse.eleve.ui.helper.CourseLauncherAdapter;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +39,11 @@ public class CoursesByClassroomFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private ArrayList<String> courses = new ArrayList<>();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private RecyclerView courseLauncherRecyclerView;
+    //private ProgressDialog progressDialog;
+    private ArrayList<String> courseList = new ArrayList<>();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -63,18 +84,54 @@ public class CoursesByClassroomFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_courses_by_classroom, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_courses_by_classroom, container, false);
         Button courseLauncher = rootView.findViewById(R.id.course_launcher);
+        final String classroom = getActivity().getIntent().getExtras().getString("classroom");
         courseLauncher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), CourseLauncher.class);
-                String classroom = getActivity().getIntent().getExtras().getString("classroom");
                 intent.putExtra("classroom", classroom);
                 getActivity().startActivity(intent);
             }
         });
 
+
+        db.collection("00000001").document("ac_2019_2020")
+                .collection("Classes").document(classroom)
+                .collection("Courses")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                courses.add(document.getId());
+                            }
+                        } else {
+                            Log.w("TAG", "Error getting documents.", task.getException());
+                        }
+                    }
+                }).addOnSuccessListener(
+                new OnSuccessListener<QuerySnapshot>(){
+
+                    @RequiresApi(api = Build.VERSION_CODES.O)
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        final int chatTest = Log.d("chatTest", String.valueOf(courses.size()));
+
+                        for(String course: courses) {
+                            courseList.add(course);
+                        }
+
+                        CourseLauncherAdapter courseLauncherAdapter = new CourseLauncherAdapter(getContext(), (ArrayList<String>) courseList);
+                        courseLauncherRecyclerView = rootView.findViewById(R.id.course_recycler_view);
+                        courseLauncherRecyclerView.setAdapter(courseLauncherAdapter);
+                        courseLauncherRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                        courseLauncherAdapter.notifyDataSetChanged();
+                    }
+                }
+        );
         return rootView;
     }
 }
