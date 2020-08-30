@@ -37,7 +37,7 @@ public class CourseProcessingAdapter extends RecyclerView.Adapter<CourseProcessi
     private List<String> courseContentList;
     private LayoutInflater courseContentInflater;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
-    private StorageReference storageRef; //= storage.getReference();
+    private StorageReference storageRef;
 
     public CourseProcessingAdapter(Context context, List<String> courseContentList) {
         this.courseContentList = courseContentList;
@@ -73,7 +73,7 @@ public class CourseProcessingAdapter extends RecyclerView.Adapter<CourseProcessi
                     storageRef = storage.getReference().child((sCurrent.split(">")[1]).substring(2));
                     File rootPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
                     String courseDirectoryPathString = storageRef.getParent().getPath();
-                    File contentDirectory = new File(rootPath,"/Content/.content"+courseDirectoryPathString);
+                    File contentDirectory = new File(rootPath,"/Content/.content");
                     contentDirectory.mkdirs();
 
                     //File courseDirectory = new File(contentDirectory + courseDirectoryPathString);

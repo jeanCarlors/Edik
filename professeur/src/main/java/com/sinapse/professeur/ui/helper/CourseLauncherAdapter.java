@@ -1,4 +1,4 @@
-package com.sinapse.eleve.ui.helper;
+package com.sinapse.professeur.ui.helper;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,21 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.Timestamp;
-import com.sinapse.eleve.R;
-import com.sinapse.eleve.ui.CourseProcessing;
+import com.sinapse.professeur.R;
+import com.sinapse.professeur.ui.CourseProcessing;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 public class CourseLauncherAdapter extends RecyclerView.Adapter<CourseLauncherAdapter.CourseListViewHolder>{
