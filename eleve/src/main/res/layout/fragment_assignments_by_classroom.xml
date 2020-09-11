@@ -43,7 +43,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"
-            android:text="Devoir remis"
+            android:text="Devoirs remis"
             android:textSize="15dp"
             android:textColor="#ffffff"
             android:gravity="center"

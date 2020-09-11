@@ -12,10 +12,10 @@ import com.sinapse.eleve.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link RatingsByClassroomFragment#newInstance} factory method to
+ * Use the {@link ActivitiesByClassroomFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RatingsByClassroomFragment extends Fragment {
+public class ActivitiesByClassroomFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class RatingsByClassroomFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public RatingsByClassroomFragment() {
+    public ActivitiesByClassroomFragment() {
         // Required empty public constructor
     }
 
@@ -39,8 +39,8 @@ public class RatingsByClassroomFragment extends Fragment {
      * @return A new instance of fragment RatingsByClassroomFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static RatingsByClassroomFragment newInstance(String param1, String param2) {
-        RatingsByClassroomFragment fragment = new RatingsByClassroomFragment();
+    public static ActivitiesByClassroomFragment newInstance(String param1, String param2) {
+        ActivitiesByClassroomFragment fragment = new ActivitiesByClassroomFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +61,6 @@ public class RatingsByClassroomFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ratings_by_classroom, container, false);
+        return inflater.inflate(R.layout.fragment_activities_by_classroom, container, false);
     }
 }

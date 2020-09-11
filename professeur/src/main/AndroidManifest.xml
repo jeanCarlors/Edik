@@ -12,7 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.helper.CourseContentViewer"></activity>
+        <activity android:name=".ui.ExamForSubmitting"></activity>
+        <activity android:name=".ui.AssignmentDetails" />
+        <activity android:name=".AssignmentDetails" />
+        <activity android:name=".ui.helper.CourseContentViewer" />
         <activity android:name=".ui.helper.ContentViewer" />
         <activity android:name=".ui.ContentByChapter" />
         <activity android:name=".ui.ContentList" />
@@ -24,7 +27,7 @@
         <activity android:name=".ui.AssignmentReturn" />
         <activity android:name=".ui.Messages" />
         <activity android:name=".ui.ActivityByClassroomByDay" />
-        <activity android:name=".ui.Assignment" />
+        <activity android:name=".ui.AssignmentsForSubmitting" />
         <activity android:name=".ui.CourseProcessing" />
         <activity android:name=".ui.CourseLauncher" />
         <activity android:name=".ui.TeacherContentByClassroom" />

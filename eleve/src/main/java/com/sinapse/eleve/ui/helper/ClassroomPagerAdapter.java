@@ -7,9 +7,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.sinapse.eleve.ui.AssignmentsByClassroomFragment;
 import com.sinapse.eleve.ui.CoursesByClassroomFragment;
-import com.sinapse.eleve.ui.DrawerContentFragment;
 import com.sinapse.eleve.ui.ExamsByClassroomFragment;
-import com.sinapse.eleve.ui.RatingsByClassroomFragment;
+import com.sinapse.eleve.ui.ActivitiesByClassroomFragment;
 import com.sinapse.eleve.ui.TeachersByClassroomFragment;
 
 
@@ -29,7 +28,7 @@ public class ClassroomPagerAdapter extends FragmentStateAdapter {
             case 2:
                 return new ExamsByClassroomFragment();
             case 3:
-                return new RatingsByClassroomFragment();
+                return new ActivitiesByClassroomFragment();
             case 4:
                 return new TeachersByClassroomFragment();
             default:

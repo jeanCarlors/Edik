@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.ActivitiesByClassroomFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp">
+        <TextView
+            android:id="@+id/tv_cours"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:text="Les activites d'aujourd'hui"
+            android:textSize="15dp"
+            android:textColor="#ffffff"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:background="@color/colorPrimary"
+            android:layout_marginBottom="10dp"
+            android:textStyle="bold"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/activities_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_below="@+id/tv_cours"/>
+
+        <TextView
+            android:id="@+id/other_activities"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:text="Voir autres activites"
+            android:textSize="15dp"
+            android:textColor="#ffffff"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:background="@color/colorPrimary"
+            android:layout_marginBottom="10dp"
+            android:textStyle="bold"
+            android:layout_below="@id/activities_recycler_view"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/other_activities">
+            <Button
+                android:id="@+id/date_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:text="Choisir la date"
+                android:textSize="15dp"
+                android:textColor="#ffffff"
+                android:gravity="center"
+                android:textAllCaps="true"
+                android:background="@color/colorPrimary"
+                android:layout_marginBottom="10dp"
+                android:textStyle="bold"
+                android:layout_weight="0.5" />
+            <Button
+                android:id="@+id/apply_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:text="Appliquer la demande"
+                android:textSize="15dp"
+                android:textColor="#ffffff"
+                android:gravity="center"
+                android:textAllCaps="true"
+                android:background="@color/colorPrimary"
+                android:layout_marginBottom="10dp"
+                android:textStyle="bold"
+                android:layout_weight="0.5" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</FrameLayout>

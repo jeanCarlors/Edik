@@ -1,5 +1,6 @@
 package com.sinapse.professeur.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.sinapse.professeur.R;
 
@@ -61,6 +63,20 @@ public class ExamsByClassroomFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_exams_by_classroom, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_exams_by_classroom, container, false);
+        Button examLauncher = rootView.findViewById(R.id.exam_launcher);
+        final String classroom = getActivity().getIntent().getExtras().getString("classroom");
+        examLauncher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ExamForSubmitting.class);
+                intent.putExtra("classroom", classroom);
+                getActivity().startActivity(intent);
+            }
+        });
+
+
+
+        return rootView;
     }
 }

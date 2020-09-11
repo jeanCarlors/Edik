@@ -1,5 +1,6 @@
 package com.sinapse.eleve.ui;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -175,109 +176,9 @@ public class ProfileManagementFragment extends Fragment {
     }
 
     public void onProfileBtnClicked(View view) {
-        final String username = getActivity().getIntent().getExtras().getString("username");
-        String grade = getActivity().getIntent().getExtras().getString("grade");
-        String school = getActivity().getIntent().getExtras().getString("school");
-        EditText edt_name = (EditText) view.getRootView().findViewById(R.id.edit_text_student_name);
-        EditText edt_firstname = (EditText) view.getRootView().findViewById(R.id.edit_text_student_firstname);
-        EditText edt_telephone = (EditText) view.getRootView().findViewById(R.id.edit_text_student_telephone);
-        EditText edt_responsable_name = (EditText) view.getRootView().findViewById(R.id.edit_text_responsable_name);
-        EditText edt_responsable_tel = (EditText) view.getRootView().findViewById(R.id.edit_text_responsable_telephone);
-        final DocumentReference studentDocumentReferenceForRemoving = db.collection("00000001")
-                .document("ac_2019_2020").collection("Eleves")
-                .document(username);
-
-        final Map<String, Object> profil = new HashMap<>();
-        if (edt_name.getText().toString().length() > 0)
-            profil.put("nom", edt_name.getText().toString());
-
-        if (edt_firstname.getText().toString().length() > 0)
-            profil.put("prenom", edt_firstname.getText().toString());
-
-        if (edt_telephone.getText().toString().length() > 0)
-            profil.put("telephone", edt_telephone.getText().toString());
-
-        if (edt_responsable_name.getText().toString().length() > 0)
-            profil.put("responsable", edt_responsable_name.getText().toString());
-        if (edt_responsable_tel.getText().toString().length() > 0)
-            profil.put("telephone responsable", edt_responsable_tel.getText().toString());
-
-        if (gradeSpinner.getSelectedItem().toString().length() > 0) {
-            DocumentReference classeDocumentreference = db.collection("00000001")
-                    .document("ac_2019_2020").collection("Classes")
-                    .document(gradeSpinner.getSelectedItem().toString());
-            profil.put("classe", classeDocumentreference);
-        }
-
-        if (edt_name.getText().toString().length() > 0 || edt_firstname.getText().toString().length() > 0
-                || edt_telephone.getText().toString().length() > 0 || edt_responsable_name.getText().toString().length() > 0
-                || edt_responsable_tel.getText().toString().length() > 0){
-            db.collection("00000001").document("ac_2019_2020")
-                    .collection("Eleves")
-                    .document(username).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if (document.exists()) {
-                            if(!document.getData().get("classe").equals(db.collection("00000001")
-                                    .document("ac_2019_2020").collection("Classes")
-                                    .document(gradeSpinner.getSelectedItem().toString()))){
-                                    DocumentReference studentClassroom = (DocumentReference)document.getData().get("classe");
-                                    studentClassroom.get()
-                                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                            if (task.isSuccessful()) {
-                                                DocumentSnapshot document = task.getResult();
-                                                if (document.exists()) {
-                                                    String classroom = document.getId();
-                                                    db.collection("00000001").document("ac_2019_2020").collection("Classes")
-                                                            .document(classroom).update("eleves",
-                                                            FieldValue.arrayRemove(studentDocumentReferenceForRemoving));
-
-                                                }else{
-                                                    db.collection("00000001").document("ac_2019_2020")
-                                                            .collection("Professeurs")
-                                                            .document(username).set(profil);
-                                                }
-                                            }
-                                        }
-                                    });
-                            }
-                            db.collection("00000001").document("ac_2019_2020")
-                                    .collection("Eleves")
-                                    .document(username).update(profil);
-                        } else {
-                            db.collection("00000001").document("ac_2019_2020")
-                                    .collection("Eleves")
-                                    .document(username).set(profil);
-                        }
-                    }
-                }
-            });
-            edt_name.setText("");
-            edt_firstname.setText("");
-            edt_telephone.setText("");
-            edt_responsable_name.setText("");
-            edt_responsable_tel.setText("");
-            edt_name.setHint("Rentrez votre nom ");
-            edt_firstname.setHint("Rentrez votre prenom ");
-            edt_telephone.setHint("Rentrez votre téléphone ");
-            edt_responsable_name.setHint("Le nom de votre responsable");
-            edt_responsable_tel.setHint("Téléphone responsable");
-        }
-
-        DocumentReference studentDocumentReference = db.collection("00000001")
-                .document("ac_2019_2020").collection("Eleves")
-                .document(username);
-
-        db.collection("00000001").document("ac_2019_2020").collection("Classes")
-                .document(gradeSpinner.getSelectedItem().toString()).update("eleves", FieldValue.arrayUnion(studentDocumentReference));
-
-
-        //edt_grade.setHint("Rentrez votre classe"); */
-        //Toast.makeText(getContext(), spinner_grade.getSelectedItem().toString(), LENGTH_LONG).show();
-        Toast.makeText(getContext(), "Le profil est enregistré", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(getContext(), ProfileUpdate.class);
+        String username = getActivity().getIntent().getExtras().getString("username");
+        intent.putExtra("username", username);
+        getActivity().startActivity(intent);
     }
 }
