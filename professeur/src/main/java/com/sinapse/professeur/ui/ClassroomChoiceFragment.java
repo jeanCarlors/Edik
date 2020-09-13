@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
@@ -91,18 +92,22 @@ public class ClassroomChoiceFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_classroom_choice, container, false);
 
         progressDialog = new ProgressDialog(getContext());
-        progressDialog.setTitle("Chargement de la page...");
+        progressDialog.setTitle("Chargement de la page ...");
         progressDialog.setMessage("Si le chargement de page tarde, vérifier votre connexion d'internet.");
         progressDialog.setCancelable(false);
         progressDialog.show();
         db.collection("00000001").document("ac_2019_2020").collection("Professeurs")
                 .document(username)
-                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                Log.d("ClassroomChoiceFragment", "onComplete");
                 if (task.isSuccessful()) {
+                    Log.d("ClassroomChoiceFragment", "task.isSuccessful()");
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
+                        Log.d("ClassroomChoiceFragment", "document.exists()");
                         final ArrayList classrooms = (ArrayList) document.getData().get("classes");
                         if(classrooms != null && classrooms.size() > 0){
                             for (DocumentReference studentRefrence : (ArrayList<DocumentReference>) classrooms) {
@@ -140,8 +145,16 @@ public class ClassroomChoiceFragment extends Fragment {
                             Toast.makeText(getContext(), "Aucune classe retrouvee", Toast.LENGTH_LONG)
                                     .show();
                         }
-                    }
+                    } else {Log.d("ClassroomChoiceFragment", "!document.exists()");}
                 }
+
+                progressDialog.dismiss();
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                e.printStackTrace();
             }
         });
         return rootView;

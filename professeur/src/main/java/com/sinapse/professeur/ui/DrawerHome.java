@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
+import com.sinapse.professeur.databinding.ActivityDrawerHomeBinding;
+import com.sinapse.professeur.databinding.ActivityHomeBinding;
 import com.sinapse.professeur.ui.DrawerContentFragment;
 import com.sinapse.professeur.R;
 
@@ -23,13 +25,13 @@ public class DrawerHome extends AppCompatActivity {
     private NavigationView nvDrawer;
     //private DrawerToggle drawerToggle;
 
+    ActivityDrawerHomeBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_drawer_home);
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        binding = ActivityDrawerHomeBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot()); //R.layout.activity_main
+        setSupportActionBar(binding.toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

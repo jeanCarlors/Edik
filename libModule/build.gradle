@@ -3,6 +3,8 @@ apply plugin: 'java-library'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    implementation 'com.google.firebase:firebase-firestore:21.6.0'
+
 }
 
 sourceCompatibility = "7"

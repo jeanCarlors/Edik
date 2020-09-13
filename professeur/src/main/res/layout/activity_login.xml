@@ -1,63 +1,104 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.Login">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imgview"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:padding="10dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/edik"/>
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimaryDark"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="50dp"
-        android:paddingRight="50dp"
-        android:orientation="vertical">
-        <EditText
-            android:id="@+id/username_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:layout_marginTop="10dp"
-            android:inputType="text"
-            android:hint="Nom d'utilisateur"/>
+        android:layout_height="match_parent"
+        android:background="#eee"
+        android:orientation="vertical"
+        tools:context=".ui.Login"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <EditText
-            android:id="@+id/password_edit_text"
+        <ImageView
+            android:id="@+id/imgview"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="0dp"
+            android:padding="10dp"
+            android:src="@drawable/edik_transparent" />
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/tv_error"
+            android:textColor="#faa"
+            android:text="@string/app_name"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="#fff"
+            android:orientation="vertical"
             android:padding="10dp"
-            android:layout_marginTop="10dp"
-            android:inputType="textPassword"
-            android:hint="Mot de passe"/>
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp">
+
+            <EditText
+                android:id="@+id/user_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Nom d'utilisateur"
+                android:inputType="text"
+                android:padding="10dp" />
+
+            <EditText
+                android:id="@+id/password_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Mot de passe"
+                android:inputType="textPassword"
+                android:padding="10dp" />
+
+            <Button
+                android:id="@+id/btn"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/selector_button_normal"
+                android:onClick="onLoginBtnClicked"
+                android:padding="10dp"
+                android:text="Se connecter"
+                android:textColor="#ffffff" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/txtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="0dp"
+            android:clickable="true"
+            android:onClick="OnRecoveryBtnClicked"
+            android:text="Mot de passe oublie ?"
+            android:textColor="#41A317" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/txtView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="50dp"
-        android:textColor="#41A317"
-        android:text="Mot de passe oublie ?"
-        android:clickable="true"
-        android:onClick="OnRecoveryBtnClicked"/>
-
-    <Button
-        android:id="@+id/btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:layout_gravity="center"
-        android:layout_marginTop="15dp"
-        android:padding="10dp"
-        android:textColor="#ffffff"
-        android:onClick="onLoginBtnClicked"
-        android:text="Se connecter"/>
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
