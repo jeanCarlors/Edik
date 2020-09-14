@@ -13,27 +13,45 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.helper.CourseContentViewer"/>
+        <activity android:name=".ui.helper.CourseContentViewer"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".ui.helper.ContentViewer" />
+        <activity android:name=".ui.helper.ContentViewer"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar"  />
 
-        <activity android:name=".ui.ContentByChapter" />
+        <activity android:name=".ui.ContentByChapter"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar"  />
 
-        <activity android:name=".ui.ContentList" />
+        <activity android:name=".ui.ContentList"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar"  />
 
-        <activity android:name=".ui.LoginRecovery" />
+        <activity android:name=".ui.LoginRecovery"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar"  />
 
         <activity android:name=".ui.Login"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".ui.DrawerHome" />
+        <activity android:name=".ui.DrawerHome"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar"  />
 
-        <activity android:name=".ui.ActivityDetails" />
+        <activity android:name=".ui.ActivityDetails"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar"  />
 
-        <activity android:name=".ui.AssignmentReturnDetails" />
+        <activity android:name=".ui.AssignmentReturnDetails"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar"  />
 
-        <activity android:name=".ui.AssignmentReturn" />
+        <activity android:name=".ui.AssignmentReturn"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar"  />
 
         <activity android:name=".ui.Messages"
             android:label="@string/title_activity_messages"

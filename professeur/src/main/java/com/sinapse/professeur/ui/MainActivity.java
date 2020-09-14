@@ -94,6 +94,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == LOGIN_ACTIVITY && resultCode == RESULT_OK) {
+            if(Session.currentUser != null)
+                binding.fab.setText("Entrer");
             goToDrawer();
         }
     }
