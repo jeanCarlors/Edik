@@ -100,7 +100,7 @@ public class Login extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(DocumentSnapshot documentSnapshot) {
 
-                                        if(!documentSnapshot.exists()) {
+                                        if(!documentSnapshot.exists() || documentSnapshot.getData() == null) {
                                             FirebaseAuth.getInstance().signOut();
                                             loading.dismiss();
                                             binding.tvError.setText("Une erreur s'est produite.");
@@ -108,8 +108,8 @@ public class Login extends AppCompatActivity {
                                             return;
                                         }
 
-                                        Session.currentUser = new User();
-                                        Session.currentUser.setName(documentSnapshot.getString("name"));
+                                        Session.currentUser = new User(documentSnapshot.getData(), authResult.getUser().getUid());
+                                        /*Session.currentUser.setName(documentSnapshot.getString("name"));
                                         Session.currentUser.setPhoto(documentSnapshot.getString("photo"));
                                         Session.currentUser.setStatus(documentSnapshot.getString("status"));
                                         Session.currentUser.setType(documentSnapshot.getString("type"));
@@ -120,7 +120,7 @@ public class Login extends AppCompatActivity {
                                             Session.currentUser.setVerified(documentSnapshot.getBoolean("verified"));
                                         } catch (Exception e) {
                                             e.printStackTrace();
-                                        }
+                                        }*/
 
                                         loading.dismiss();
                                         setResult(RESULT_OK);

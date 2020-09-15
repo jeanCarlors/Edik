@@ -14,6 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.firebase.ui.firestore.SnapshotParser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -21,13 +24,19 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.sinapse.libmodule.beans.Classroom;
+import com.sinapse.libmodule.beans.Session;
 import com.sinapse.professeur.R;
 import com.sinapse.professeur.ui.helper.GradeListForDetailsAdapter;
+import com.sinapse.professeur.viewholders.ClassViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -83,80 +92,154 @@ public class ClassroomChoiceFragment extends Fragment {
         }
     }
 
+    RecyclerView recyclerView;
+    FirestoreRecyclerAdapter adapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        String username = getActivity().getIntent().getExtras().getString("username");
+
+//        String username = getActivity().getIntent().getExtras().getString("username");
 
         // Inflate the layout for this fragment
         final View rootView = inflater.inflate(R.layout.fragment_classroom_choice, container, false);
 
-        progressDialog = new ProgressDialog(getContext());
+        Query query = db.collection("Schools")
+                .document(Session.currentUser.getSchool())
+                .collection("annees_academiques")
+                .document(Session.currentUser.getAnneeAcademique())
+                .collection("classes")
+                .whereArrayContains("professeurs", Session.currentUser.getUid());
+
+        FirestoreRecyclerOptions<Classroom> classrooms = new FirestoreRecyclerOptions.Builder<Classroom>()
+                .setQuery(query, new SnapshotParser<Classroom>() {
+                    @NonNull
+                    @Override
+                    public Classroom parseSnapshot(@NonNull DocumentSnapshot snapshot) {
+                        Classroom classroom = new Classroom();
+                        classroom.setName(snapshot.getString("name"));
+                        try {
+                            classroom.setNbEleves(((List<String>)snapshot.get("nbEleves")).size());
+                        } catch (Exception e) {
+                            classroom.setNbEleves(-1);
+                            e.printStackTrace();
+                        }
+                        return classroom;
+                    }
+                })
+                .build();
+
+        adapter = new FirestoreRecyclerAdapter<Classroom, ClassViewHolder>(classrooms) {
+            @Override
+            public void onError(@NonNull FirebaseFirestoreException e) {
+                super.onError(e);
+                e.printStackTrace();
+            }
+
+            @Override
+            protected void onBindViewHolder(@NonNull ClassViewHolder holder, int position, @NonNull Classroom model) {
+                holder.title.setText(model.getName());
+                holder.subTitle.setText(String.format(Locale.FRANCE, "Nbre d'éleves: %d", model.getNbEleves()));
+            }
+
+            @NonNull
+            @Override
+            public ClassViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.list_item_2, parent, false);
+                return new ClassViewHolder(view);
+            }
+        };
+
+        recyclerView = rootView.findViewById(R.id.grade_choice_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
+
+        /*progressDialog = new ProgressDialog(getContext());
         progressDialog.setTitle("Chargement de la page ...");
         progressDialog.setMessage("Si le chargement de page tarde, vérifier votre connexion d'internet.");
         progressDialog.setCancelable(false);
         progressDialog.show();
+
         db.collection("00000001").document("ac_2019_2020").collection("Professeurs")
                 .document(username)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                Log.d("ClassroomChoiceFragment", "onComplete");
-                if (task.isSuccessful()) {
-                    Log.d("ClassroomChoiceFragment", "task.isSuccessful()");
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d("ClassroomChoiceFragment", "document.exists()");
-                        final ArrayList classrooms = (ArrayList) document.getData().get("classes");
-                        if(classrooms != null && classrooms.size() > 0){
-                            for (DocumentReference studentRefrence : (ArrayList<DocumentReference>) classrooms) {
-                                studentRefrence.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            DocumentSnapshot document = task.getResult();
-                                            if (document.exists()) {
-                                                gradeList.add(document.getId());
-                                                Log.d("classroomSize", String.valueOf(gradeList.size()));
-                                            }
-                                        }
-                                    }
-                                }).addOnSuccessListener(
-                                        new OnSuccessListener<DocumentSnapshot>() {
-
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        Log.d("ClassroomChoiceFragment", "onComplete");
+                        if (task.isSuccessful()) {
+                            Log.d("ClassroomChoiceFragment", "task.isSuccessful()");
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                Log.d("ClassroomChoiceFragment", "document.exists()");
+                                final ArrayList classrooms = (ArrayList) document.getData().get("classes");
+                                if (classrooms != null && classrooms.size() > 0) {
+                                    for (DocumentReference studentRefrence : (ArrayList<DocumentReference>) classrooms) {
+                                        studentRefrence.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                             @Override
-                                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                                if (gradeList.size() == classrooms.size() && gradeList.size() != 0) {
-                                                    progressDialog.dismiss();
-                                                    Log.d("classroomsSize", String.valueOf(gradeList.size()));
-                                                    gradeListForDetailsRecyclerView = rootView.findViewById(R.id.grade_choice_recycler_view);
-                                                    gradeListForDetailsAdapter = new GradeListForDetailsAdapter(getContext(), (ArrayList<String>) gradeList);
-                                                    gradeListForDetailsRecyclerView.setAdapter(gradeListForDetailsAdapter);
-                                                    progressDialog.dismiss();
-                                                    gradeListForDetailsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    DocumentSnapshot document = task.getResult();
+                                                    if (document.exists()) {
+                                                        gradeList.add(document.getId());
+                                                        Log.d("classroomSize", String.valueOf(gradeList.size()));
+                                                    }
                                                 }
                                             }
-                                        }
-                                );
+                                        })
+                                        .addOnSuccessListener(
+                                                new OnSuccessListener<DocumentSnapshot>() {
+
+                                                    @Override
+                                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                        if (gradeList.size() == classrooms.size() && gradeList.size() != 0) {
+                                                            progressDialog.dismiss();
+                                                            Log.d("classroomsSize", String.valueOf(gradeList.size()));
+                                                            gradeListForDetailsRecyclerView = rootView.findViewById(R.id.grade_choice_recycler_view);
+                                                            gradeListForDetailsAdapter = new GradeListForDetailsAdapter(getContext(), (ArrayList<String>) gradeList);
+                                                            gradeListForDetailsRecyclerView.setAdapter(gradeListForDetailsAdapter);
+                                                            progressDialog.dismiss();
+                                                            gradeListForDetailsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                                        }
+                                                    }
+                                                }
+                                        );
+                                    }
+                                } else {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(getContext(), "Aucune classe retrouvee", Toast.LENGTH_LONG)
+                                            .show();
+                                }
+                            } else {
+                                Log.d("ClassroomChoiceFragment", "!document.exists()");
                             }
-                        }else{
-                            progressDialog.dismiss();
-                            Toast.makeText(getContext(), "Aucune classe retrouvee", Toast.LENGTH_LONG)
-                                    .show();
                         }
-                    } else {Log.d("ClassroomChoiceFragment", "!document.exists()");}
-                }
 
-                progressDialog.dismiss();
+                        progressDialog.dismiss();
 
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                e.printStackTrace();
-            }
-        });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        e.printStackTrace();
+                    }
+                });*/
+
         return rootView;
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
     }
 }

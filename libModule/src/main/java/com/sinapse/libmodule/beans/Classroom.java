@@ -9,9 +9,54 @@ public class Classroom {
     private List<Student> students;
     private List<Teacher> teachers;
     private List<Subject> subjects;
+    private List<String> eleves;
+    private List<String> professeurs;
+    private long nbProf;
+    private long nbEleves;
+    private String docRef;
 
 
     public Classroom() {
+    }
+
+    public String getDocRef() {
+        return docRef;
+    }
+
+    public void setDocRef(String docRef) {
+        this.docRef = docRef;
+    }
+
+    public long getNbProf() {
+        return nbProf;
+    }
+
+    public void setNbProf(long nbProf) {
+        this.nbProf = nbProf;
+    }
+
+    public long getNbEleves() {
+        return nbEleves;
+    }
+
+    public void setNbEleves(long nbEleves) {
+        this.nbEleves = nbEleves;
+    }
+
+    public List<String> getEleves() {
+        return eleves;
+    }
+
+    public void setEleves(List<String> eleves) {
+        this.eleves = eleves;
+    }
+
+    public List<String> getProfesseurs() {
+        return professeurs;
+    }
+
+    public void setProfesseurs(List<String> professeurs) {
+        this.professeurs = professeurs;
     }
 
     public String getLevel() {

@@ -47,8 +47,15 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
 
-                            Session.currentUser = new User();
-                            Session.currentUser.setName(documentSnapshot.getString("name"));
+                            if(documentSnapshot.getData() == null) {
+                                FirebaseAuth.getInstance().signOut();
+                                binding.fab.setText("Se connecter");
+                                binding.fab.setVisibility(View.VISIBLE);
+                                return;
+                            }
+
+                            Session.currentUser = new User(documentSnapshot.getData(), user.getUid());
+                            /*Session.currentUser.setName(documentSnapshot.getString("name"));
                             Session.currentUser.setPhoto(documentSnapshot.getString("photo"));
                             Session.currentUser.setStatus(documentSnapshot.getString("status"));
                             Session.currentUser.setType(documentSnapshot.getString("type"));
@@ -59,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                                 Session.currentUser.setVerified(documentSnapshot.getBoolean("verified"));
                             } catch (Exception e) {
                                 e.printStackTrace();
-                            }
+                            }*/
 
                             binding.fab.setVisibility(View.VISIBLE);
                         }
