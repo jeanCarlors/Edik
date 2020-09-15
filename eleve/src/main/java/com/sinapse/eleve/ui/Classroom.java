@@ -45,7 +45,7 @@ public class Classroom extends AppCompatActivity {
                                 tab.setText("Controles");
                                 break;
                             case 3:
-                                tab.setText("Notes");
+                                tab.setText("Cahier de classe");
                                 break;
                             case 4:
                                 tab.setText("Professeurs");

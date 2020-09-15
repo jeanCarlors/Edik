@@ -1,16 +1,16 @@
-package com.sinapse.professeur.ui;
+package com.sinapse.eleve.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.sinapse.professeur.R;
+import com.sinapse.eleve.R;
 
-public class Assignment extends AppCompatActivity {
+public class AssignmentForSubmitting extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_assignment);
+        setContentView(R.layout.activity_assignment_for_submitting);
     }
 }
