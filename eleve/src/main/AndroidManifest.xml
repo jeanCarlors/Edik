@@ -12,33 +12,93 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.ProfileUpdate"></activity>
-        <activity android:name=".ui.helper.CourseContentViewer" />
-        <activity android:name=".ui.CourseProcessing" />
-        <activity android:name=".ui.CourseLauncher" />
-        <activity android:name=".ui.helper.ContentViewer" />
-        <activity android:name=".ui.ContentByChapter" />
-        <activity android:name=".ui.LoginRecovery" />
-        <activity android:name=".ui.Login" />
-        <activity android:name=".ui.DrawerHome" />
-        <activity android:name=".ui.ActivityDetails" />
-        <activity android:name=".ui.AssignmentForSubmitting" />
-        <activity android:name=".ui.CourseUnfolding" />
-        <activity android:name=".ui.Messages" />
-        <activity android:name=".ui.ActivityByDay" />
-        <activity android:name=".ui.ClassroomInfo" />
-        <activity android:name=".ui.Subject" />
-        <activity android:name=".ui.Classroom" />
-        <activity android:name=".ui.ContentDetails" />
-        <activity android:name=".ui.ContentList" />
-        <activity android:name=".ui.Home" />
-        <activity android:name=".ui.MainActivity">
+
+        <activity android:name=".ui.helper.CourseContentViewer"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".ui.CourseProcessing"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar"  />
+
+        <activity android:name=".ui.CourseLauncher"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar"  />
+
+        <activity android:name=".ui.helper.ContentViewer"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar"  />
+
+        <activity android:name=".ui.ContentByChapter"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar"  />
+
+        <activity android:name=".ui.LoginRecovery"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar"  />
+
+        <activity android:name=".ui.Login"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar"  />
+
+        <activity android:name=".ui.DrawerHome"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar"  />
+
+        <activity android:name=".ui.ActivityDetails"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar"  />
+
+        <activity android:name=".ui.AssignmentSubmission"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar"  />
+
+        <activity android:name=".ui.CourseUnfolding"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar"  />
+
+        <activity android:name=".ui.Messages"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar"  />
+
+        <activity android:name=".ui.ActivityByDay"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar"  />
+
+        <activity android:name=".ui.ClassroomInfo"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar"  />
+
+        <activity android:name=".ui.Subject"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar"  />
+
+        <activity android:name=".ui.Classroom"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar"  />
+
+        <activity android:name=".ui.ContentDetails"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar"  />
+
+        <activity android:name=".ui.ContentList"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar"  />
+
+        <activity android:name=".ui.Home"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar"  />
+
+        <activity android:name=".ui.MainActivity"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

@@ -13,6 +13,10 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.sinapse.libmodule.beans.Session;
+import com.sinapse.professeur.databinding.ActivityDrawerHomeBinding;
+import com.sinapse.professeur.databinding.ActivityHomeBinding;
 import com.sinapse.professeur.ui.DrawerContentFragment;
 import com.sinapse.professeur.R;
 
@@ -23,13 +27,13 @@ public class DrawerHome extends AppCompatActivity {
     private NavigationView nvDrawer;
     //private DrawerToggle drawerToggle;
 
+    ActivityDrawerHomeBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_drawer_home);
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        binding = ActivityDrawerHomeBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        setSupportActionBar(binding.toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -89,6 +93,13 @@ public class DrawerHome extends AppCompatActivity {
             case R.id.drawer_message:
                 fragmentClass = DrawerMessageFragment.class;
                 break;
+
+            case R.id.drawer_logout:
+                FirebaseAuth.getInstance().signOut();
+                Session.currentUser = null;
+                setResult(RESULT_CANCELED);
+                finish();
+                return;
 
             default:
                 fragmentClass = DrawerContentFragment.class;
