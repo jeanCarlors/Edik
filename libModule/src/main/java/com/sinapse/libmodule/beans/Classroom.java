@@ -13,18 +13,18 @@ public class Classroom {
     private List<String> professeurs;
     private long nbProf;
     private long nbEleves;
-    private String docRef;
+    private String docPath;
 
 
     public Classroom() {
     }
 
-    public String getDocRef() {
-        return docRef;
+    public String getDocPath() {
+        return docPath;
     }
 
-    public void setDocRef(String docRef) {
-        this.docRef = docRef;
+    public void setDocPath(String docPath) {
+        this.docPath = docPath;
     }
 
     public long getNbProf() {

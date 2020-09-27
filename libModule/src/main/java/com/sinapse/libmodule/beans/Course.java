@@ -7,10 +7,19 @@ public class Course {
   private String subject;
   private String theme;
   private String classroom;
+  private String docPath;
   private LocalDateTime courseDateTime;
 
     public Course() {
 
+    }
+
+    public String getDocPath() {
+        return docPath;
+    }
+
+    public void setDocPath(String docPath) {
+        this.docPath = docPath;
     }
 
     public String getId() {

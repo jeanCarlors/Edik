@@ -14,9 +14,11 @@ public class ClassViewHolder extends RecyclerView.ViewHolder {
 
     public TextView title;
     public TextView subTitle;
+    public View view;
 
     public ClassViewHolder(@NonNull View itemView) {
         super(itemView);
+        view = itemView;
         title = itemView.findViewById(R.id.title);
         subTitle = itemView.findViewById(R.id.subtitle);
     }
