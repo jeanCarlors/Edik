@@ -18,4 +18,17 @@
     <string name="title_activity_activities">Activités</string>
     <string name="title_activity_messages">Messages</string>
     <string name="title_activity_login">Edik - Connexion</string>
+    <string name="title_activity_classroom_details">Détails de la classe</string>
+
+    <string-array name="classe_pages">
+        <item>Détails</item>
+        <item>Cours</item>
+        <item>Elèves</item>
+    </string-array>
+
+    <string-array name="cours_pages">
+        <item>Détails</item>
+        <item>Sessions</item>
+        <item>Evaluations</item>
+    </string-array>
 </resources>

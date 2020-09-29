@@ -1,6 +1,7 @@
 package com.sinapse.professeur.ui;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,25 +13,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.sinapse.libmodule.beans.Classroom;
 import com.sinapse.libmodule.beans.Session;
 import com.sinapse.professeur.R;
+import com.sinapse.professeur.classroom.ClassroomDetailsActivity;
 import com.sinapse.professeur.ui.helper.GradeListForDetailsAdapter;
 import com.sinapse.professeur.viewholders.ClassViewHolder;
 
@@ -65,15 +59,6 @@ public class ClassroomChoiceFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ClassroomChoiceFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ClassroomChoiceFragment newInstance(String param1, String param2) {
         ClassroomChoiceFragment fragment = new ClassroomChoiceFragment();
         Bundle args = new Bundle();
@@ -93,7 +78,7 @@ public class ClassroomChoiceFragment extends Fragment {
     }
 
     RecyclerView recyclerView;
-    FirestoreRecyclerAdapter adapter;
+    FirestoreRecyclerAdapter<Classroom, ClassViewHolder> adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -118,8 +103,9 @@ public class ClassroomChoiceFragment extends Fragment {
                     public Classroom parseSnapshot(@NonNull DocumentSnapshot snapshot) {
                         Classroom classroom = new Classroom();
                         classroom.setName(snapshot.getString("name"));
+                        classroom.setDocPath(snapshot.getReference().getPath());
                         try {
-                            classroom.setNbEleves(((List<String>)snapshot.get("nbEleves")).size());
+                            classroom.setNbEleves(((List<Object>)snapshot.get("eleves")).size());
                         } catch (Exception e) {
                             classroom.setNbEleves(-1);
                             e.printStackTrace();
@@ -137,9 +123,18 @@ public class ClassroomChoiceFragment extends Fragment {
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull ClassViewHolder holder, int position, @NonNull Classroom model) {
+            protected void onBindViewHolder(@NonNull ClassViewHolder holder, int position, @NonNull final Classroom model) {
                 holder.title.setText(model.getName());
                 holder.subTitle.setText(String.format(Locale.FRANCE, "Nbre d'éleves: %d", model.getNbEleves()));
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.d("Class pa0th", model.getDocPath());
+                        Intent intent = new Intent(getContext(), ClassroomDetailsActivity.class);
+                        intent.putExtra("PATH", model.getDocPath());
+                        startActivity(intent);
+                    }
+                });
             }
 
             @NonNull

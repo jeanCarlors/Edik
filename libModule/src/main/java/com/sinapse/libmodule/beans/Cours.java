@@ -8,7 +8,7 @@ public class Cours {
     private String classe;
     private String matiere;
     private String cours;
-    private String docReference;
+    private String docPath;
     private Timestamp timestamp;
     private boolean isFree;
 
@@ -55,12 +55,12 @@ public class Cours {
         this.cours = cours;
     }
 
-    public String getDocReference() {
-        return docReference;
+    public String getDocPath() {
+        return docPath;
     }
 
-    public void setDocReference(String docReference) {
-        this.docReference = docReference;
+    public void setDocPath(String docPath) {
+        this.docPath = docPath;
     }
 
     public Timestamp getTimestamp() {
