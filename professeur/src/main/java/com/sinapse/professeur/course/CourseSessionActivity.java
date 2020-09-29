@@ -140,6 +140,7 @@ public class CourseSessionActivity extends AppCompatActivity
 
                 _list = true;
                 updateProgressBar();
+                
             }
 
             @NonNull
@@ -207,8 +208,8 @@ public class CourseSessionActivity extends AppCompatActivity
         if(requestCode == PICKFILE_RESULT_CODE) {
             if(resultCode == RESULT_OK) {
                 try {
-                    File file = new File(data.getData().getPath());
-                    sendFile(data.getData());
+                    if(data != null && data.getData() != null)
+                        sendFile(data.getData());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -220,29 +221,16 @@ public class CourseSessionActivity extends AppCompatActivity
     }
 
     private void sendFile(Uri fileUri) {
-        File file = new File(fileUri.getPath());
-        String filePath = "sessions/" + chatRef.getParent().getId();
-        try {
-            MessageDigest sha1 = MessageDigest.getInstance("sha-1");
-            sha1.update(
-                    String.format(
-                            Locale.US,
-                            "%s_%s_%s",
-                            file.getName(), String.valueOf((new Date()).getTime()), Session.currentUser.getUid()
-                    ).getBytes());
-            filePath += "/" + Base64.encodeToString(sha1.digest(), Base64.URL_SAFE);
-            //filePath += "_test.png";// + file.getName();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            filePath += String.format(
-                    Locale.US,
-                    "/%s_%s",
-                    String.valueOf((new Date()).getTime()), Session.currentUser.getUid()//, file.getName()
-                    );
-        }
 
-        Log.d("FILE_NAME", filePath);
-        filePath.replaceAll(" ", "").replaceAll("\\n", "");
+        File file = new File(fileUri.getPath());
+
+        String filePath = "sessions/" + chatRef.getParent().getId();
+        filePath += String.format(
+                Locale.US,
+                "/%s_%s_%s",
+                String.valueOf((new Date()).getTime()), Session.currentUser.getUid(), file.getName()
+        );
+
         Log.d("FILE_NAME", filePath);
 
         StorageMetadata metadata = new StorageMetadata.Builder()
@@ -281,7 +269,7 @@ public class CourseSessionActivity extends AppCompatActivity
     private void completeFileMessageSending(UploadTask.TaskSnapshot taskSnapshot) {
         final CourseSessionMessage csm = new CourseSessionMessage();
         csm.setContent(taskSnapshot.getMetadata().getCustomMetadata("ORIGINAL_NAME"));
-        csm.setContentUrl(taskSnapshot.getStorage().getDownloadUrl().getResult().getPath());
+        csm.setContentUrl(taskSnapshot.getMetadata().getPath());
         csm.setFromName(Session.currentUser.getName());
         csm.setFromUID(Session.currentUser.getUid());
         csm.setType(taskSnapshot.getMetadata().getContentType());
