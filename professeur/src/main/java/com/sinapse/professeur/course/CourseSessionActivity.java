@@ -1,39 +1,65 @@
 package com.sinapse.professeur.course;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageMetadata;
+import com.google.firebase.storage.UploadTask;
 import com.sinapse.libmodule.beans.CourseSession;
 import com.sinapse.libmodule.beans.CourseSessionMessage;
+import com.sinapse.libmodule.beans.Session;
 import com.sinapse.professeur.R;
 import com.sinapse.professeur.databinding.ActivityCourseSessionBinding;
+import com.sinapse.professeur.utils.Utils;
 import com.sinapse.professeur.viewholders.ClassViewHolder;
 import com.sinapse.professeur.viewholders.CourseSessionMessageViewHolder;
 
+import java.io.File;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
-public class CourseSessionActivity extends AppCompatActivity {
+public class CourseSessionActivity extends AppCompatActivity
+        implements View.OnClickListener {
+
+    public static final int PICKFILE_RESULT_CODE = 101;
 
     ActivityCourseSessionBinding binding;
     SimpleDateFormat dtFormat;
 
     boolean _details = false;
     boolean _list = false;
+
+    CollectionReference chatRef;
 
     FirestoreRecyclerAdapter<CourseSessionMessage, CourseSessionMessageViewHolder> adapter;
 
@@ -49,6 +75,9 @@ public class CourseSessionActivity extends AppCompatActivity {
             setResult(RESULT_CANCELED);
             finish();
         }
+
+        binding.btnSend.setOnClickListener(this);
+        binding.btnAdd.setOnClickListener(this);
 
         setTitle("Session");
         dtFormat = new SimpleDateFormat("EEE, dd MMM, hh:mm", Locale.FRANCE);
@@ -72,9 +101,12 @@ public class CourseSessionActivity extends AppCompatActivity {
                     }
                 });
 
-        Query query = FirebaseFirestore.getInstance()
+        chatRef = FirebaseFirestore.getInstance()
                 .document(path)
                 .collection("messages");
+
+        Query query = chatRef
+                .orderBy("created_date");
 
         FirestoreRecyclerOptions<CourseSessionMessage> recyclerOptions = new FirestoreRecyclerOptions.Builder<CourseSessionMessage>()
                 .setQuery(query, new SnapshotParser<CourseSessionMessage>() {
@@ -88,6 +120,7 @@ public class CourseSessionActivity extends AppCompatActivity {
                         msg.setFromName(snapshot.getString("from_name"));
                         msg.setType(snapshot.getString("type"));
                         msg.setContent(snapshot.getString("message"));
+                        msg.setContentUrl(snapshot.getString("media_url"));
                         msg.setCreated_date(snapshot.getTimestamp("created_date").toDate());
                         return msg;
                     }
@@ -103,6 +136,7 @@ public class CourseSessionActivity extends AppCompatActivity {
 
                 holder.imgType.setVisibility(View.GONE);
                 holder.imgDownload.setVisibility(View.GONE);
+                holder.progressBar.setVisibility(View.GONE);
 
                 _list = true;
                 updateProgressBar();
@@ -129,6 +163,145 @@ public class CourseSessionActivity extends AppCompatActivity {
         );
     }
 
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.btn_send) {
+
+            String msg = binding.msgBox.getText().toString();
+            if(msg.length() == 0)
+                return;
+
+            final CourseSessionMessage csm = new CourseSessionMessage();
+            csm.setContent(msg);
+            csm.setFromName(Session.currentUser.getName());
+            csm.setFromUID(Session.currentUser.getUid());
+            csm.setType("TEXT");
+            csm.setCreated_date(new Date());
+
+            chatRef.document().set(Utils.CourseSessionMessaageToMap(csm))
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            binding.msgBox.setText("");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            e.printStackTrace();
+                        }
+                    });
+
+        }
+        else if(v.getId() == R.id.btn_add) {
+            Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
+            chooseFile.setType("*/*");
+            chooseFile = Intent.createChooser(chooseFile, "Choose a file");
+            startActivityForResult(chooseFile, PICKFILE_RESULT_CODE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == PICKFILE_RESULT_CODE) {
+            if(resultCode == RESULT_OK) {
+                try {
+                    File file = new File(data.getData().getPath());
+                    sendFile(data.getData());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            else {
+                Log.d("MESSAGE", "File not load!");
+            }
+        }
+    }
+
+    private void sendFile(Uri fileUri) {
+        File file = new File(fileUri.getPath());
+        String filePath = "sessions/" + chatRef.getParent().getId();
+        try {
+            MessageDigest sha1 = MessageDigest.getInstance("sha-1");
+            sha1.update(
+                    String.format(
+                            Locale.US,
+                            "%s_%s_%s",
+                            file.getName(), String.valueOf((new Date()).getTime()), Session.currentUser.getUid()
+                    ).getBytes());
+            filePath += "/" + Base64.encodeToString(sha1.digest(), Base64.URL_SAFE);
+            //filePath += "_test.png";// + file.getName();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            filePath += String.format(
+                    Locale.US,
+                    "/%s_%s",
+                    String.valueOf((new Date()).getTime()), Session.currentUser.getUid()//, file.getName()
+                    );
+        }
+
+        Log.d("FILE_NAME", filePath);
+        filePath.replaceAll(" ", "").replaceAll("\\n", "");
+        Log.d("FILE_NAME", filePath);
+
+        StorageMetadata metadata = new StorageMetadata.Builder()
+                .setCustomMetadata("ORIGINAL_NAME", file.getName())
+                .build();
+
+        FirebaseStorage.getInstance()
+                .getReference()
+                .child(filePath)
+                .putFile(fileUri, metadata)
+                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
+                        double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                        String msgLog = "Upload is " + progress + "% done";
+                        Log.d("LOG", msgLog);
+                        binding.msgBox.setText(msgLog);
+                    }
+                })
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        completeFileMessageSending(taskSnapshot);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), "Upload failed", Toast.LENGTH_LONG).show();
+                        binding.msgBox.setText("");
+                        e.printStackTrace();
+                    }
+                });
+    }
+
+    private void completeFileMessageSending(UploadTask.TaskSnapshot taskSnapshot) {
+        final CourseSessionMessage csm = new CourseSessionMessage();
+        csm.setContent(taskSnapshot.getMetadata().getCustomMetadata("ORIGINAL_NAME"));
+        csm.setContentUrl(taskSnapshot.getStorage().getDownloadUrl().getResult().getPath());
+        csm.setFromName(Session.currentUser.getName());
+        csm.setFromUID(Session.currentUser.getUid());
+        csm.setType(taskSnapshot.getMetadata().getContentType());
+        csm.setCreated_date(new Date());
+
+        chatRef.document().set(Utils.CourseSessionMessaageToMap(csm))
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        binding.msgBox.setText("");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+
+    }
 
     @Override
     public void onStart() {
@@ -141,4 +314,5 @@ public class CourseSessionActivity extends AppCompatActivity {
         super.onStop();
         adapter.stopListening();
     }
+
 }
