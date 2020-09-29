@@ -3,12 +3,16 @@ package com.sinapse.professeur.course;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +32,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageMetadata;
@@ -42,6 +47,7 @@ import com.sinapse.professeur.viewholders.ClassViewHolder;
 import com.sinapse.professeur.viewholders.CourseSessionMessageViewHolder;
 
 import java.io.File;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
@@ -129,18 +135,135 @@ public class CourseSessionActivity extends AppCompatActivity
 
         adapter = new FirestoreRecyclerAdapter<CourseSessionMessage, CourseSessionMessageViewHolder>(recyclerOptions) {
             @Override
-            protected void onBindViewHolder(@NonNull CourseSessionMessageViewHolder holder, int position, @NonNull CourseSessionMessage model) {
+            protected void onBindViewHolder(@NonNull final CourseSessionMessageViewHolder holder, int position, @NonNull final CourseSessionMessage model) {
                 holder.tvFrom.setText(model.getFromName());
                 holder.tvDate.setText(dtFormat.format(model.getCreated_date()));
                 holder.tvContent.setText(model.getContent());
 
                 holder.imgType.setVisibility(View.GONE);
-                holder.imgDownload.setVisibility(View.GONE);
+                holder.videoView.setVisibility(View.GONE);
                 holder.progressBar.setVisibility(View.GONE);
+
+                if (!"TEXT".equals(model.getType())) {
+                    holder.imgType.setVisibility(View.VISIBLE);
+
+                    final File rootPath = Environment.getExternalStoragePublicDirectory(
+                            Environment.DIRECTORY_DOWNLOADS);
+                    final File file = new File(rootPath + "/EDIK/" + model.getContentUrl());
+
+                    if (model.getType().contains("image")) {
+                        if (!file.exists())
+                            holder.imgType.setImageResource(R.drawable.ic_baseline_image_48);
+                        else {
+                            Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+                            holder.imgType.setImageBitmap(myBitmap);
+                        }
+
+                    } else if (model.getType().contains("video") || model.getType().contains("audio")) {
+                        if (!file.exists())
+                            holder.imgType.setImageResource(R.drawable.ic_baseline_ondemand_video_48);
+                        else {
+                            holder.imgType.setVisibility(View.GONE);
+                        }
+                    } else {
+                        holder.imgType.setImageResource(R.drawable.ic_baseline_insert_drive_file_48);
+                    }
+
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            if (!"TEXT".equals(model.getType())) {
+
+                                if (file.exists()) {
+                                    if (!"TEXT".equals(model.getType())) {
+                                        Uri path = FileProvider.getUriForFile(
+                                                getApplicationContext(),
+                                                getApplicationContext().getApplicationContext().getPackageName() + ".provider",
+                                                file
+                                        );
+                                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                                        intent.setDataAndType(path, model.getType());
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                        startActivity(intent);
+                                    }
+                                } else {
+
+                                    try {
+                                        File dir = new File(rootPath + "/EDIK/sessions/" + chatRef.getParent().getId());
+                                        if (!dir.exists()) {
+                                            boolean dir_created = dir.mkdirs();
+                                            if (!dir_created) {
+                                                Log.d("MKDIR", "dir not created : " + dir.getAbsolutePath());
+                                                return;
+                                            }
+                                        }
+
+                                        boolean created = file.createNewFile();
+                                        if (!created) {
+                                            Log.d("File creation", "File not created : " + file.getAbsolutePath());
+                                            return;
+                                        }
+
+                                        Log.d("DOWNLOAD URL", model.getContentUrl());
+                                        Log.d("LOCAL URL", file.getAbsolutePath());
+
+                                        holder.progressBar.setVisibility(View.VISIBLE);
+                                        holder.imgType.setVisibility(View.GONE);
+
+                                        FirebaseStorage.getInstance()
+                                                .getReference()
+                                                .child(model.getContentUrl())
+                                                .getFile(file)
+                                                .addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
+                                                    @Override
+                                                    public void onProgress(@NonNull FileDownloadTask.TaskSnapshot snapshot) {
+                                                        double progress = (100.0 * snapshot.getBytesTransferred()) / snapshot.getTotalByteCount();
+                                                        String msgLog = "Upload is " + progress + "% done";
+                                                        Log.d("LOG", msgLog);
+                                                        holder.progressBar.setProgress((int) progress);
+                                                    }
+                                                })
+                                                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                                    @Override
+                                                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                                        holder.progressBar.setVisibility(View.GONE);
+                                                        holder.imgType.setVisibility(View.VISIBLE);
+
+                                                        if (model.getType().contains("image")) {
+                                                            if (!file.exists())
+                                                                holder.imgType.setImageResource(R.drawable.ic_baseline_image_48);
+                                                            else {
+                                                                Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+                                                                holder.imgType.setImageBitmap(myBitmap);
+                                                            }
+
+                                                        }
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        holder.progressBar.setVisibility(View.GONE);
+                                                        holder.imgType.setVisibility(View.VISIBLE);
+                                                        e.printStackTrace();
+                                                    }
+                                                });
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+
+
+                        }
+                    });
+                }
 
                 _list = true;
                 updateProgressBar();
-                
+
             }
 
             @NonNull
@@ -166,10 +289,10 @@ public class CourseSessionActivity extends AppCompatActivity
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.btn_send) {
+        if (v.getId() == R.id.btn_send) {
 
             String msg = binding.msgBox.getText().toString();
-            if(msg.length() == 0)
+            if (msg.length() == 0)
                 return;
 
             final CourseSessionMessage csm = new CourseSessionMessage();
@@ -193,8 +316,7 @@ public class CourseSessionActivity extends AppCompatActivity
                         }
                     });
 
-        }
-        else if(v.getId() == R.id.btn_add) {
+        } else if (v.getId() == R.id.btn_add) {
             Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
             chooseFile.setType("*/*");
             chooseFile = Intent.createChooser(chooseFile, "Choose a file");
@@ -205,16 +327,15 @@ public class CourseSessionActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == PICKFILE_RESULT_CODE) {
-            if(resultCode == RESULT_OK) {
+        if (requestCode == PICKFILE_RESULT_CODE) {
+            if (resultCode == RESULT_OK) {
                 try {
-                    if(data != null && data.getData() != null)
+                    if (data != null && data.getData() != null)
                         sendFile(data.getData());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
-            else {
+            } else {
                 Log.d("MESSAGE", "File not load!");
             }
         }
